@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="0.07999998" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/registerUserNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -41,14 +41,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/editTextPhone2"
+        android:id="@+id/registerPhoneText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/registerUserNameText"
+        app:layout_constraintStart_toStartOf="@+id/registerUserNameText"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <TextView
@@ -62,14 +62,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/registerPasswordText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPhone2"
-        app:layout_constraintStart_toStartOf="@+id/editTextPhone2"
+        app:layout_constraintEnd_toEndOf="@+id/registerPhoneText"
+        app:layout_constraintStart_toStartOf="@+id/registerPhoneText"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
@@ -83,13 +83,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/registerVerifyText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/registerPasswordText"
+        app:layout_constraintStart_toStartOf="@+id/registerPasswordText"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <Button
@@ -97,19 +98,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="发送验证码"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintBottom_toTopOf="@+id/registerSubmitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/registerSubmitButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="提交"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/verifyButton"
+        app:layout_constraintStart_toStartOf="@+id/verifyButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.68" />
 
