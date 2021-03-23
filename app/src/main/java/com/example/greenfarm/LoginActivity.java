@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.greenfarm.utils.HttpUtil;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
 
@@ -18,10 +23,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private Button registerButton;
 
+    private EditText ipText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Toast.makeText(this,"onCreate",Toast.LENGTH_SHORT).show();
 
         loginPhoneText = findViewById(R.id.loginPhoneText);
         loginPhoneText.setOnClickListener(this);
@@ -31,6 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(this);
+
+        ipText = findViewById(R.id.ipText);
     }
 
 
@@ -40,8 +51,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     @Override
     public void onClick(View view) {
-
-
 
         switch (view.getId()) {
             case R.id.loginPhoneText: {
@@ -53,9 +62,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
             case R.id.registerButton: {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                intent.putExtra("phoneNumber",loginPhoneText.getText().toString());
-                startActivity(intent);
+                String regex = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(ipText.getText().toString());
+                boolean isIP = matcher.matches();
+                if (isIP) {
+                    HttpUtil.serverIP = ipText.getText().toString();//设置IP
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    intent.putExtra("phoneNumber",loginPhoneText.getText().toString());
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LoginActivity.this,"IP地址格式错误",Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
             default:

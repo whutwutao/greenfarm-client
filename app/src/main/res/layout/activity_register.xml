@@ -19,6 +19,7 @@
 
     <EditText
         android:id="@+id/registerUserNameText"
+        android:hint="用户名为必填项"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -42,6 +43,7 @@
 
     <EditText
         android:id="@+id/registerPhoneText"
+        android:hint="手机号为必填项"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -63,6 +65,7 @@
 
     <EditText
         android:id="@+id/registerPasswordText"
+        android:hint="密码为必填项"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"

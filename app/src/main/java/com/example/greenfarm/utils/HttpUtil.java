@@ -14,9 +14,11 @@ import okio.BufferedSink;
 
 public class HttpUtil {
 
-    public static final String serverIP = "http://192.168.1.102";
+    public static String networkProtocol = "http://";
 
-    public static final String serverPort = ":8081";
+    public static String serverIP = "192.168.1.102";
+
+    public static String serverPort = ":8081";
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 

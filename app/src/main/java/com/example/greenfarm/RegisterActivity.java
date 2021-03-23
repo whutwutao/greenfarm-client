@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.greenfarm.pojo.User;
+import com.example.greenfarm.pojo.UserRegisterMessage;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 
@@ -46,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         Intent intent = getIntent();
         registerPhoneText.setText(intent.getStringExtra("phoneNumber"));
-
         registerSubmitButton = findViewById(R.id.registerSubmitButton);
         registerSubmitButton.setOnClickListener(this);
     }
@@ -55,37 +56,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.registerSubmitButton: {
-                String registerResult = "";
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        String registerUrl = HttpUtil.serverIP + HttpUtil.serverPort + "/register";
-//                        Gson gson = new Gson();
-//                        User user = new User(registerUserNameText.getText().toString(),registerPasswordText.getText().toString(),registerPhoneText.getText().toString());
-//                        String json = gson.toJson(user);
-//                        try {
-//                            HttpUtil.postWithOkHttp(registerUrl, json, new okhttp3.Callback() {
-//                                @Override
-//                                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//
-//                                }
-//                            });
-//                        } catch (IOException e) {
-//                            System.out.println("用户注册异常");
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }).start();
-                String registerUrl = HttpUtil.serverIP + HttpUtil.serverPort + "/register";
+                if (registerUserNameText.getText().toString().isEmpty() || registerPhoneText.getText().toString().isEmpty() || registerPasswordText.getText().toString().isEmpty()) {
+                    Toast.makeText(RegisterActivity.this,"信息未填写完整！",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                String registerUrl = HttpUtil.networkProtocol + HttpUtil.serverIP + HttpUtil.serverPort + "/register";
                 Gson gson = new Gson();
                 User user = new User(registerUserNameText.getText().toString(),registerPasswordText.getText().toString(),registerPhoneText.getText().toString());
                 String json = gson.toJson(user);
-                String response;
                 try {
                     HttpUtil.postWithOkHttp(registerUrl, json, new okhttp3.Callback() {
                         //回调操作还是在子线程中运行的
@@ -101,15 +79,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            String json = response.body().string();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    try {
-                                        Toast.makeText(RegisterActivity.this, response.body().string(),Toast.LENGTH_SHORT).show();
+                                    Gson gson = new Gson();
+                                    UserRegisterMessage msg = gson.fromJson(json,UserRegisterMessage.class);
+                                    Log.d("RegisterActivity",json);
+                                    Log.d("RegisterActivity",msg.toString());
+                                    if (msg.isSuccessful()) {
+                                        Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                         startActivity(intent);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this,msg.getFailReason(),Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
