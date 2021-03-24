@@ -1,16 +1,16 @@
 package com.example.greenfarm.pojo;
 
-public class UserRegisterMessage {
+public class UserMessage {
 
-    //是否注册成功
+    //是否成功(注册或登录）
     private boolean successful;
     //失败原因
     private String failReason;
 
-    public UserRegisterMessage() {
+    public UserMessage() {
     }
 
-    public UserRegisterMessage(boolean isSuccessful, String failReason) {
+    public UserMessage(boolean isSuccessful, String failReason) {
         this.successful = isSuccessful;
         this.failReason = failReason;
     }

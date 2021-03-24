@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.greenfarm.pojo.User;
-import com.example.greenfarm.pojo.UserRegisterMessage;
+import com.example.greenfarm.pojo.UserMessage;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 
@@ -63,9 +63,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String registerUrl = HttpUtil.networkProtocol + HttpUtil.serverIP + HttpUtil.serverPort + "/register";
                 Gson gson = new Gson();
                 User user = new User(registerUserNameText.getText().toString(),registerPasswordText.getText().toString(),registerPhoneText.getText().toString());
-                String json = gson.toJson(user);
+                String jsonToServer = gson.toJson(user);
                 try {
-                    HttpUtil.postWithOkHttp(registerUrl, json, new okhttp3.Callback() {
+                    HttpUtil.postWithOkHttp(registerUrl, jsonToServer, new okhttp3.Callback() {
                         //回调操作还是在子线程中运行的
                         @Override
                         public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -79,13 +79,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            String json = response.body().string();
+                            String jsonFromServer = response.body().string();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     Gson gson = new Gson();
-                                    UserRegisterMessage msg = gson.fromJson(json,UserRegisterMessage.class);
-                                    Log.d("RegisterActivity",json);
+                                    UserMessage msg = gson.fromJson(jsonFromServer, UserMessage.class);
+                                    Log.d("RegisterActivity",jsonFromServer);
                                     Log.d("RegisterActivity",msg.toString());
                                     if (msg.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
