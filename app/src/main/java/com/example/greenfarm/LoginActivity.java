@@ -41,6 +41,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //IP输入栏
     private EditText ipText;
 
+    //MainActivity测试按钮
+    private Button mainActivityTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         ipText = findViewById(R.id.ipText);
         HttpUtil.serverIP = ipText.getText().toString();//设置IP
+
+        mainActivityTest = findViewById(R.id.mainActivityTest);
+        mainActivityTest.setOnClickListener(this);
     }
 
 
@@ -105,6 +111,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Log.d("LoginActivity",jsonFromServer);
                                     if (msgFromServer.isSuccessful()) {
                                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                        startActivity(intent);
                                     } else {
                                         Toast.makeText(LoginActivity.this,msgFromServer.getFailReason(),Toast.LENGTH_SHORT).show();
                                     }
@@ -131,6 +139,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this,"IP地址格式错误",Toast.LENGTH_SHORT).show();
                 }
                 break;
+            }
+            case R.id.mainActivityTest: {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
             default:
                 break;

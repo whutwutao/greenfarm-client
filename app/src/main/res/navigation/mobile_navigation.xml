@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_cart">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.greenfarm.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.example.greenfarm.ui.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/cart_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_mine"
+        android:name="com.example.greenfarm.ui.mine.MineFragment"
+        android:label="@string/title_mine"
+        tools:layout="@layout/mine_fragment" />
+</navigation>
