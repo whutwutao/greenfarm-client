@@ -17,6 +17,13 @@
         android:layout_width="match_parent"/>
 
     <com.example.greenfarm.myLayout.MineLayout
+        android:id="@+id/farmInfo"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
+
+    <com.example.greenfarm.myLayout.MineLayout
         android:id="@+id/setting"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>

@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "信息输入不完整",Toast.LENGTH_SHORT).show();
                     break;
                 }
+                HttpUtil.serverIP = ipText.getText().toString();
                 User user = new User(null,loginPasswordText.getText().toString(),loginPhoneText.getText().toString());
                 Gson gson = new Gson();
                 String jsonToServer = gson.toJson(user);
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 @Override
                                 public void run() {
                                     Toast.makeText(LoginActivity.this,"网络连接错误",Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
                                 }
                             });
 
@@ -109,9 +111,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     UserMessage msgFromServer = gson.fromJson(jsonFromServer,UserMessage.class);
                                     Log.d("LoginActivity",msgFromServer.toString());
                                     Log.d("LoginActivity",jsonFromServer);
+                                    User loginUser = msgFromServer.getUser();
                                     if (msgFromServer.isSuccessful()) {
                                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                        String jsonOfLoginUser = gson.toJson(loginUser);
+                                        intent.putExtra("loginUser",jsonOfLoginUser);//将loginUser的信息传给MainActivity
                                         startActivity(intent);
                                     } else {
                                         Toast.makeText(LoginActivity.this,msgFromServer.getFailReason(),Toast.LENGTH_SHORT).show();

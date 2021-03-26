@@ -31,12 +31,15 @@ public class MineFragment extends Fragment {
         MineLayout personalInfo = root.findViewById(R.id.personalInfo);
         MineLayout orderInfo = root.findViewById(R.id.orderInfo);
         MineLayout setting = root.findViewById(R.id.setting);
+        MineLayout farmInfo = root.findViewById(R.id.farmInfo);
 
         personalInfo.setTextContent("个人信息");
 
         orderInfo.setTextContent("我的订单");
 
         setting.setTextContent("设置");
+
+        farmInfo.setTextContent("我的农场");
 
         personalInfo.setOnRootClickListener(new MineLayout.OnRootClickListener() {
             @Override
@@ -56,6 +59,13 @@ public class MineFragment extends Fragment {
             @Override
             public void onRootClick(View view) {
                 Toast.makeText(getActivity(),"点击了设置",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        farmInfo.setOnRootClickListener(new MineLayout.OnRootClickListener() {
+            @Override
+            public void onRootClick(View view) {
+                Toast.makeText(getActivity(),"点击了我的农场",Toast.LENGTH_SHORT).show();
             }
         });
 
