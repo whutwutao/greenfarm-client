@@ -14,28 +14,30 @@ import androidx.annotation.Nullable;
 import com.example.greenfarm.R;
 import com.example.greenfarm.utils.DensityUtils;
 
-public class MineLayout extends LinearLayout {
+public class MineItemLayout extends LinearLayout {
 
     private View dividerTop, dividerBottom;//上下分隔线
     private LinearLayout llRoot;
     private TextView tvTextContent;
+    private TextView tvTextContentValue;
     private ImageView ivRightIcon;
 
-    public MineLayout(Context context) {
+    public MineItemLayout(Context context) {
         super(context);
     }
 
-    public MineLayout(Context context, @Nullable AttributeSet attrs) {
+    public MineItemLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public MineLayout init() {
+    public MineItemLayout init() {
         LayoutInflater.from(getContext()).inflate(R.layout.mine_item, this, true);
         llRoot = findViewById(R.id.ll_root);
         dividerTop = findViewById(R.id.divider_top);
         dividerBottom = findViewById(R.id.divider_bottom);
         tvTextContent = findViewById(R.id.tv_text_content);
+        tvTextContentValue = findViewById(R.id.tv_text_content_value);
         ivRightIcon = findViewById(R.id.iv_right_icon);
         return this;
     }
@@ -46,7 +48,7 @@ public class MineLayout extends LinearLayout {
      * @param showDividerBottom
      * @return
      */
-    public MineLayout showDivider(Boolean showDividerTop, Boolean showDividerBottom) {
+    public MineItemLayout showDivider(Boolean showDividerTop, Boolean showDividerBottom) {
         if (showDividerTop) {
             dividerTop.setVisibility(VISIBLE);
         } else {
@@ -65,7 +67,7 @@ public class MineLayout extends LinearLayout {
      *
      * @return
      */
-    public MineLayout setDividerTopColor(int dividerTopColorRes) {
+    public MineItemLayout setDividerTopColor(int dividerTopColorRes) {
         dividerTop.setBackgroundColor(getResources().getColor(dividerTopColorRes));
         return this;
     }
@@ -75,7 +77,7 @@ public class MineLayout extends LinearLayout {
      *
      * @return
      */
-    public MineLayout setDividerTopHeight(int dividerTopHeightDp) {
+    public MineItemLayout setDividerTopHeight(int dividerTopHeightDp) {
         ViewGroup.LayoutParams layoutParams = dividerTop.getLayoutParams();
         layoutParams.height = DensityUtils.dp2px(getContext(), dividerTopHeightDp);
         dividerTop.setLayoutParams(layoutParams);
@@ -86,7 +88,7 @@ public class MineLayout extends LinearLayout {
      * 设置root的paddingTop 与 PaddingBottom 从而控制整体的行高
      * paddingLeft 与 paddingRight 保持默认 20dp
      */
-    public MineLayout setRootPaddingTopBottom(int paddintTop, int paddintBottom) {
+    public MineItemLayout setRootPaddingTopBottom(int paddintTop, int paddintBottom) {
         llRoot.setPadding(DensityUtils.dp2px(getContext(), 20),
                 DensityUtils.dp2px(getContext(), paddintTop),
                 DensityUtils.dp2px(getContext(), 20),
@@ -97,7 +99,7 @@ public class MineLayout extends LinearLayout {
     /**
      * 设置右边Icon 的宽高
      */
-    public MineLayout setLeftIconSize(int widthDp, int heightDp) {
+    public MineItemLayout setLeftIconSize(int widthDp, int heightDp) {
         ViewGroup.LayoutParams layoutParams = ivRightIcon.getLayoutParams();
         layoutParams.width = DensityUtils.dp2px(getContext(), widthDp);
         layoutParams.height = DensityUtils.dp2px(getContext(), heightDp);
@@ -111,7 +113,7 @@ public class MineLayout extends LinearLayout {
      * @param textContent
      * @return
      */
-    public MineLayout setTextContent(String textContent) {
+    public MineItemLayout setTextContent(String textContent) {
         tvTextContent.setText(textContent);
         return this;
     }
@@ -121,7 +123,7 @@ public class MineLayout extends LinearLayout {
      *
      * @return
      */
-    public MineLayout setTextContentColor(int colorRes) {
+    public MineItemLayout setTextContentColor(int colorRes) {
         tvTextContent.setTextColor(getResources().getColor(colorRes));
         return this;
     }
@@ -131,8 +133,18 @@ public class MineLayout extends LinearLayout {
      *
      * @return
      */
-    public MineLayout setTextContentSize(int textSizeSp) {
+    public MineItemLayout setTextContentSize(int textSizeSp) {
         tvTextContent.setTextSize(textSizeSp);
+        return this;
+    }
+
+    public MineItemLayout setTextContentValue(String textContentValue) {
+        tvTextContentValue.setText(textContentValue);
+        return this;
+    }
+
+    public MineItemLayout setTextContentValueSize(int textSizeSp) {
+        tvTextContentValue.setText(textSizeSp);
         return this;
     }
 
@@ -143,7 +155,7 @@ public class MineLayout extends LinearLayout {
         void onRootClick(View view);
     }
 
-    public MineLayout setOnRootClickListener(final OnRootClickListener onRootClickListener) {
+    public MineItemLayout setOnRootClickListener(final OnRootClickListener onRootClickListener) {
         llRoot.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -32,6 +32,15 @@
             android:layout_weight="1"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/tv_text_content_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:layout_marginRight="12dp"
+            android:textSize="14sp"/>
+
         <!--item右边的Icon 默认是向右的箭头-->
         <ImageView
             android:id="@+id/iv_right_icon"

@@ -1,9 +1,15 @@
 package com.example.greenfarm;
 
+import android.util.Log;
+
 import com.example.greenfarm.pojo.User;
 import com.google.gson.Gson;
 
 import org.junit.Test;
+import org.litepal.LitePal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -25,4 +31,6 @@ public class ExampleUnitTest {
         String json = gson.toJson(user);
         System.out.println(json);
     }
+
+
 }

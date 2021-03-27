@@ -1,4 +1,4 @@
-package com.example.greenfarm;
+package com.example.greenfarm.ui.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.pojo.UserMessage;
+import com.example.greenfarm.ui.login.LoginActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 

@@ -1,6 +1,10 @@
 package com.example.greenfarm.pojo;
 
-public class User {
+import androidx.annotation.NonNull;
+
+import org.litepal.crud.LitePalSupport;
+
+public class User extends LitePalSupport {
 
     private int id;
 
@@ -15,6 +19,8 @@ public class User {
     private int isAdministrator;
 
     public User() {
+        this.isFarmer = 0;
+        this.isAdministrator = 0;
     }
 
     public User(String username, String password, String telephone) {

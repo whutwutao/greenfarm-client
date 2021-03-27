@@ -2,6 +2,7 @@ package com.example.greenfarm.ui.mine;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.greenfarm.R;
-import com.example.greenfarm.myLayout.MineLayout;
+import com.example.greenfarm.myLayout.MineItemLayout;
+import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
 public class MineFragment extends Fragment {
 
@@ -28,41 +30,37 @@ public class MineFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.mine_fragment, container, false);
-        MineLayout personalInfo = root.findViewById(R.id.personalInfo);
-        MineLayout orderInfo = root.findViewById(R.id.orderInfo);
-        MineLayout setting = root.findViewById(R.id.setting);
-        MineLayout farmInfo = root.findViewById(R.id.farmInfo);
 
-        personalInfo.setTextContent("个人信息");
+        MineItemLayout orderInfo = root.findViewById(R.id.orderInfo);
+        MineItemLayout setting = root.findViewById(R.id.setting);
+        MineItemLayout farmInfo = root.findViewById(R.id.farmInfo);
+
 
         orderInfo.setTextContent("我的订单");
 
-        setting.setTextContent("设置");
-
         farmInfo.setTextContent("我的农场");
 
-        personalInfo.setOnRootClickListener(new MineLayout.OnRootClickListener() {
-            @Override
-            public void onRootClick(View view) {
-                Toast.makeText(getActivity(),"点击了个人信息",Toast.LENGTH_SHORT).show();
-            }
-        });
+        setting.setTextContent("设置");
 
-        orderInfo.setOnRootClickListener(new MineLayout.OnRootClickListener() {
+        setting.setDividerTopHeight(20);
+
+        orderInfo.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
             @Override
             public void onRootClick(View view) {
                 Toast.makeText(getActivity(),"点击了我的订单",Toast.LENGTH_SHORT).show();
             }
         });
 
-        setting.setOnRootClickListener(new MineLayout.OnRootClickListener() {
+        setting.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
             @Override
             public void onRootClick(View view) {
                 Toast.makeText(getActivity(),"点击了设置",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(requireActivity(), SettingActivity.class);
+                startActivity(intent);
             }
         });
 
-        farmInfo.setOnRootClickListener(new MineLayout.OnRootClickListener() {
+        farmInfo.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
             @Override
             public void onRootClick(View view) {
                 Toast.makeText(getActivity(),"点击了我的农场",Toast.LENGTH_SHORT).show();

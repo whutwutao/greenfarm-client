@@ -6,24 +6,19 @@
     android:orientation="vertical"
     tools:context=".ui.mine.MineFragment">
 
-    <com.example.greenfarm.myLayout.MineLayout
-        android:id="@+id/personalInfo"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
-
-    <com.example.greenfarm.myLayout.MineLayout
+    <com.example.greenfarm.myLayout.MineItemLayout
         android:id="@+id/orderInfo"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <com.example.greenfarm.myLayout.MineLayout
+    <com.example.greenfarm.myLayout.MineItemLayout
         android:id="@+id/farmInfo"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
 
 
-    <com.example.greenfarm.myLayout.MineLayout
+    <com.example.greenfarm.myLayout.MineItemLayout
         android:id="@+id/setting"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>

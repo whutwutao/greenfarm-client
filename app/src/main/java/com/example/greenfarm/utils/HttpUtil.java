@@ -16,9 +16,13 @@ public class HttpUtil {
 
     public static String networkProtocol = "http://";
 
-    public static String serverIP = "192.168.1.102";
+    public static String serverIP = "192.168.43.192";
 
     public static String serverPort = ":8081";
+
+    public static String getUrl(String action) {
+        return networkProtocol + serverIP + serverPort + action;
+    }
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
