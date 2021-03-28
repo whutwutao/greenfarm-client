@@ -25,15 +25,27 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         usernameItem = findViewById(R.id.username_item);
-
         usernameItem.setTextContent("用户名").setTextContentValue(UserManager.currentUser.getUsername());
+        usernameItem.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
+            @Override
+            public void onRootClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, ChangeUsernameActivity.class);
+                startActivity(intent);
+            }
+        });
 
         telephoneItem = findViewById(R.id.telephone_item);
-
         telephoneItem.setTextContent("手机号").setTextContentValue(UserManager.currentUser.getTelephone());
+        telephoneItem.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
+            @Override
+            public void onRootClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, ChangeTelephoneActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         passwordItem = findViewById(R.id.password_item);
-
         passwordItem.setTextContent("修改密码");
         passwordItem.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
             @Override
@@ -45,5 +57,18 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        usernameItem.setTextContentValue(UserManager.currentUser.getUsername());
+        telephoneItem.setTextContentValue(UserManager.currentUser.getTelephone());
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        usernameItem.setTextContentValue(UserManager.currentUser.getUsername());
+        telephoneItem.setTextContentValue(UserManager.currentUser.getTelephone());
+    }
 }

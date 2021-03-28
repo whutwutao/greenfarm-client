@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Greenfarm"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.mine.setting.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.mine.setting.ChangeTelephoneActivity"></activity>
+        <activity android:name=".ui.mine.setting.ChangeUsernameActivity" />
+        <activity android:name=".ui.mine.setting.ChangePasswordActivity" />
         <activity android:name=".ui.mine.setting.SettingActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
