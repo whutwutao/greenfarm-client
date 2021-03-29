@@ -55,14 +55,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Toast.makeText(this,"onCreate",Toast.LENGTH_SHORT).show();
 
-        loginPhoneText = findViewById(R.id.loginPhoneText);
+        loginPhoneText = findViewById(R.id.et_login_telephone);
 
-        loginPasswordText = findViewById(R.id.loginPasswordText);
+        loginPasswordText = findViewById(R.id.et_login_password);
 
-        loginButton = findViewById(R.id.loginButton);
+        loginButton = findViewById(R.id.btn_login);
         loginButton.setOnClickListener(this);
 
-        registerButton = findViewById(R.id.registerButton);
+        registerButton = findViewById(R.id.btn_register);
         registerButton.setOnClickListener(this);
 
         ipText = findViewById(R.id.ipText);
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.loginButton: {
+            case R.id.btn_login: {
                 if (loginPhoneText.getText().toString().isEmpty() || loginPasswordText.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "信息输入不完整",Toast.LENGTH_SHORT).show();
                     break;
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             }
-            case R.id.registerButton: {
+            case R.id.btn_register: {
                 String regex = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(ipText.getText().toString());

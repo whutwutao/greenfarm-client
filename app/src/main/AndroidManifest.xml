@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Greenfarm"
-        android:usesCleartextTraffic="true">
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name=".ui.mine.setting.ChangeTelephoneActivity"></activity>
         <activity android:name=".ui.mine.setting.ChangeUsernameActivity" />
         <activity android:name=".ui.mine.setting.ChangePasswordActivity" />

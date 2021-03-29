@@ -42,22 +42,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        registerUserNameText = findViewById(R.id.registerUserNameText);
+        registerUserNameText = findViewById(R.id.et_register_username);
 
-        registerPhoneText = findViewById(R.id.registerPhoneText);
+        registerPhoneText = findViewById(R.id.et_register_telephone);
 
-        registerPasswordText = findViewById(R.id.registerPasswordText);
+        registerPasswordText = findViewById(R.id.et_register_password);
 
         Intent intent = getIntent();
         registerPhoneText.setText(intent.getStringExtra("phoneNumber"));
-        registerSubmitButton = findViewById(R.id.registerSubmitButton);
+        registerSubmitButton = findViewById(R.id.btn_register_submit);
         registerSubmitButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.registerSubmitButton: {
+            case R.id.btn_register_submit: {
                 if (registerUserNameText.getText().toString().isEmpty() || registerPhoneText.getText().toString().isEmpty() || registerPasswordText.getText().toString().isEmpty()) {
                     Toast.makeText(RegisterActivity.this,"信息未填写完整！",Toast.LENGTH_SHORT).show();
                     break;
