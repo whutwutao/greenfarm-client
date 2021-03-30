@@ -26,7 +26,7 @@ public class HttpUtil {
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    public static void sendOkHttpRequest(String url, okhttp3.Callback callback) {
+    public static void sendOkHttpRequest(String url, okhttp3.Callback callback) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
 

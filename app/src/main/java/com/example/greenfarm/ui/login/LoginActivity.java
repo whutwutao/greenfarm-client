@@ -17,6 +17,7 @@ import com.example.greenfarm.ui.register.RegisterActivity;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.pojo.UserMessage;
 import com.example.greenfarm.utils.HttpUtil;
+import com.example.greenfarm.utils.RegexUtil;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -135,10 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
             case R.id.btn_register: {
-                String regex = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(ipText.getText().toString());
-                boolean isIP = matcher.matches();
+                boolean isIP = RegexUtil.checkIP(ipText.getText().toString());
                 if (isIP) {
                     HttpUtil.serverIP = ipText.getText().toString();//设置IP
                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
