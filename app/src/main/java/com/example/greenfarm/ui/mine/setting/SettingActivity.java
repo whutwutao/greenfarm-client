@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.greenfarm.R;
@@ -13,62 +14,37 @@ import com.example.greenfarm.myLayout.MineItemLayout;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private MineItemLayout usernameItem;
-
-    private MineItemLayout telephoneItem;
-
-    private MineItemLayout passwordItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        usernameItem = findViewById(R.id.username_item);
-        usernameItem.setTextContent("用户名").setTextContentValue(UserManager.currentUser.getUsername());
-        usernameItem.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
+        RelativeLayout rlChangeUsername = findViewById(R.id.rl_change_username);
+        rlChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRootClick(View view) {
+            public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, ChangeUsernameActivity.class);
                 startActivity(intent);
             }
         });
 
-        telephoneItem = findViewById(R.id.telephone_item);
-        telephoneItem.setTextContent("手机号").setTextContentValue(UserManager.currentUser.getTelephone());
-        telephoneItem.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
+        RelativeLayout rlChangeTelephone = findViewById(R.id.rl_change_telephone);
+        rlChangeTelephone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRootClick(View view) {
+            public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, ChangeTelephoneActivity.class);
                 startActivity(intent);
             }
         });
 
-
-        passwordItem = findViewById(R.id.password_item);
-        passwordItem.setTextContent("修改密码");
-        passwordItem.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
+        RelativeLayout rlChangePassword = findViewById(R.id.rl_change_password);
+        rlChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRootClick(View view) {
-//                Toast.makeText(SettingActivity.this,"修改密码",Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        usernameItem.setTextContentValue(UserManager.currentUser.getUsername());
-        telephoneItem.setTextContentValue(UserManager.currentUser.getTelephone());
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        usernameItem.setTextContentValue(UserManager.currentUser.getUsername());
-        telephoneItem.setTextContentValue(UserManager.currentUser.getTelephone());
     }
 }

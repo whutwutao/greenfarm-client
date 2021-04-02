@@ -1,43 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.mine.setting.ChangeTelephoneActivity">
 
-    <TextView
-        android:id="@+id/tv_telephone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="手机号"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06999999" />
+    <RelativeLayout
+        android:background="@drawable/shape_my_info_bg"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="phone"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_telephone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_telephone"
-        app:layout_constraintTop_toTopOf="@+id/tv_telephone" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改手机号"
+            android:textColor="@color/skin_text_white"
+            android:textSize="18sp" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <ImageView
+            android:id="@+id/iv_change_username"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_telephone" />
+
+        <EditText
+            android:id="@+id/et_new_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_change_username"
+            android:hint="输入新手机号"
+            android:inputType="phone"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:background="@null"/>
+
+    </RelativeLayout>
     <Button
-        android:id="@+id/button_changeTelephone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="保存"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/btn_change_telephone"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_big_register_btn"
+        android:text="@string/finish"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+
+</LinearLayout>

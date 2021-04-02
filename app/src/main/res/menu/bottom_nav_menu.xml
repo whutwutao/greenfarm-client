@@ -3,16 +3,16 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@mipmap/home"
+        android:icon="@mipmap/icon_home"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_cart"
-        android:icon="@mipmap/cart"
+        android:icon="@mipmap/icon_cart"
         android:title="@string/title_cart" />
 
     <item
         android:id="@+id/navigation_mine"
-        android:icon="@mipmap/mine"
+        android:icon="@mipmap/icon_mine"
         android:title="@string/title_mine" />
 </menu>

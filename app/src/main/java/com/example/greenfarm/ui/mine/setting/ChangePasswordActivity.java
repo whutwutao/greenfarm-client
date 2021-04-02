@@ -38,13 +38,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        editOldPassword = findViewById(R.id.edit_old_password);
+        editOldPassword = findViewById(R.id.et_old_password);
 
-        editNewPassword = findViewById(R.id.edit_new_password);
+        editNewPassword = findViewById(R.id.et_new_password);
 
-        editConfirmNewPassword = findViewById(R.id.edit_confirm_password);
+        editConfirmNewPassword = findViewById(R.id.et_confirm_new_password);
 
-        buttonChangePassword = findViewById(R.id.button_changePassword);
+        buttonChangePassword = findViewById(R.id.btn_change_password);
 
         buttonChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +99,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 Toast.makeText(ChangePasswordActivity.this,"修改成功",Toast.LENGTH_LONG).show();
                                 //服务器端密码修改成功之后才把UserManager.currentUser的密码改掉
                                 UserManager.currentUser.setPassword(editNewPassword.getText().toString());
+                                finish();
                             } else {
                                 Toast.makeText(ChangePasswordActivity.this,"修改失败",Toast.LENGTH_SHORT).show();
                             }

@@ -10,4 +10,5 @@
     <color name="red">#DC195B</color>
     <color name="yellow">#F1BE27</color>
     <color name="divider">#e8e7e7</color>
+    <color name="skin_text_white">#ffffff</color>
 </resources>

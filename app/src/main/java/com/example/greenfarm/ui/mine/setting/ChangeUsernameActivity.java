@@ -33,9 +33,9 @@ public class ChangeUsernameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_username);
 
-        editTextUsername = findViewById(R.id.edit_username);
+        editTextUsername = findViewById(R.id.et_new_username);
 
-        buttonChangeUsername = findViewById(R.id.button_changeUsername);
+        buttonChangeUsername = findViewById(R.id.btn_change_username);
         buttonChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +71,7 @@ public class ChangeUsernameActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(ChangeUsernameActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
                     } else {

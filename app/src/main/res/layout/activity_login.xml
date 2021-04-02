@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="329dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/vegetables"/>
+        android:src="@mipmap/icon_vegetables"/>
 
     <LinearLayout
         android:id="@+id/form_and_btn"
@@ -38,7 +38,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@mipmap/telephone" />
+                    android:src="@mipmap/icon_telephone" />
 
                 <EditText
                     android:id="@+id/et_login_telephone"
@@ -71,7 +71,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@mipmap/pwd" />
+                    android:src="@mipmap/icon_pwd" />
 
                 <EditText
                     android:id="@+id/et_login_password"

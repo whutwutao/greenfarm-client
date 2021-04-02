@@ -36,9 +36,9 @@ public class ChangeTelephoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_telephone);
 
-        editTextTelephone = findViewById(R.id.editTextPhone);
+        editTextTelephone = findViewById(R.id.et_new_telephone);
 
-        buttonChangeTelephone = findViewById(R.id.button_changeTelephone);
+        buttonChangeTelephone = findViewById(R.id.btn_change_telephone);
         buttonChangeTelephone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +80,7 @@ public class ChangeTelephoneActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(ChangeTelephoneActivity.this, "修改成功",Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
                     } else {
