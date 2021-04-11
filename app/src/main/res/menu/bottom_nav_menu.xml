@@ -7,6 +7,12 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/navigation_farm"
+        android:icon="@mipmap/icon_farm_black"
+        android:title="@string/title_farm"/>
+
+
+    <item
         android:id="@+id/navigation_cart"
         android:icon="@mipmap/icon_cart"
         android:title="@string/title_cart" />

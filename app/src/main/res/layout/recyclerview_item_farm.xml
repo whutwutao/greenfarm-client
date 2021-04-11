@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_recyclerview_item_farm"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="103dp">
+
+    <ImageView
+        android:id="@+id/iv_farm_item"
+        android:layout_width="156dp"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/ll_recyclerview_item_farm_middle"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="8"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_farm_description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:text="描述">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_farm_address"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:text="地址"/>
+
+        <TextView
+            android:id="@+id/tv_farm_area"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:text="面积"/>
+
+        <TextView
+            android:id="@+id/tv_farm_service_life"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:text="使用年限"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_recyclerview_item_farm_right"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+
+</LinearLayout>

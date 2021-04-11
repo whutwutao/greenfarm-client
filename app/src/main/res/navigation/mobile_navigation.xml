@@ -12,6 +12,12 @@
         tools:layout="@layout/home_fragment" />
 
     <fragment
+        android:id="@+id/navigation_farm"
+        android:name="com.example.greenfarm.ui.farm.FarmFragment"
+        android:label="@string/title_farm"
+        tools:layout="@layout/farm_fragment" />
+
+    <fragment
         android:id="@+id/navigation_cart"
         android:name="com.example.greenfarm.ui.cart.CartFragment"
         android:label="@string/title_cart"
