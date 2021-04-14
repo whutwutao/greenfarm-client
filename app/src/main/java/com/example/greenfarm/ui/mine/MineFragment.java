@@ -3,7 +3,6 @@ package com.example.greenfarm.ui.mine;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,15 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.greenfarm.R;
-import com.example.greenfarm.myLayout.MineItemLayout;
+import com.example.greenfarm.management.UserManager;
+import com.example.greenfarm.ui.mine.myFarm.farmer.MyFarmActivity;
 import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
 public class MineFragment extends Fragment {
 
     private MineViewModel mViewModel;
+
+    private TextView tvUsername;
+
+    private TextView tvRole;
 
     public static MineFragment newInstance() {
         return new MineFragment();
@@ -33,6 +38,16 @@ public class MineFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.mine_fragment, container, false);
+
+        tvUsername = root.findViewById(R.id.tv_mine_username);
+        tvUsername.setText(UserManager.currentUser.getUsername());
+
+        tvRole = root.findViewById(R.id.tv_mine_role);
+        if (UserManager.currentUser.getIsFarmer() == 0) {
+            tvRole.setText("会员");
+        } else {
+            tvRole.setText("农场主");
+        }
 
         RelativeLayout rlMyOrder = root.findViewById(R.id.rl_my_order);
         rlMyOrder.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +61,9 @@ public class MineFragment extends Fragment {
         rlMyFarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("点击了我的农场");
+//                showToast("点击了我的农场");
+                Intent intent = new Intent(getActivity(), MyFarmActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -54,47 +71,13 @@ public class MineFragment extends Fragment {
         rlSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("点击了设置");
+//                showToast("点击了设置");
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
             }
         });
 
-//        MineItemLayout orderInfo = root.findViewById(R.id.orderInfo);
-//        MineItemLayout setting = root.findViewById(R.id.setting);
-//        MineItemLayout farmInfo = root.findViewById(R.id.farmInfo);
-//
-//
-//        orderInfo.setTextContent("我的订单");
-//
-//        farmInfo.setTextContent("我的农场");
-//
-//        setting.setTextContent("设置");
-//
-//        setting.setDividerTopHeight(20);
-//
-//        orderInfo.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
-//            @Override
-//            public void onRootClick(View view) {
-//                Toast.makeText(getActivity(),"点击了我的订单",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        setting.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
-//            @Override
-//            public void onRootClick(View view) {
-//                Toast.makeText(getActivity(),"点击了设置",Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(requireActivity(), SettingActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        farmInfo.setOnRootClickListener(new MineItemLayout.OnRootClickListener() {
-//            @Override
-//            public void onRootClick(View view) {
-//                Toast.makeText(getActivity(),"点击了我的农场",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
         return root;
     }
@@ -119,5 +102,9 @@ public class MineFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        tvUsername.setText(UserManager.currentUser.getUsername());
+    }
 }
