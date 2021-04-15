@@ -1,8 +1,11 @@
 package com.example.greenfarm.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +29,8 @@ import org.litepal.LitePal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
+import java.util.prefs.PreferencesFactory;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -49,6 +54,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //IP输入栏
     private EditText ipText;
 
+    private SharedPreferences pref;
+
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +79,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         HttpUtil.serverIP = ipText.getText().toString();//设置IP
 
         LitePal.getDatabase();//创建数据库
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember = pref.getBoolean("remember_password", false);
+        if (isRemember) {
+            String telephone = pref.getString("telephone","");
+            String password = pref.getString("password","");
+            loginPhoneText.setText(telephone);
+            loginPasswordText.setText(password);
+        }
     }
 
 
@@ -121,6 +139,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         Gson gson1 = new Gson();
                                         UserManager.currentUser = gson1.fromJson(jsonFromServer,UserMessage.class).getUser();
                                         Log.d("LoginActivity",UserManager.currentUser.toString());
+                                        editor = pref.edit();
+                                        editor.putBoolean("remember_password", true);
+                                        editor.putString("telephone",UserManager.currentUser.getTelephone());
+                                        editor.putString("password",UserManager.currentUser.getPassword());
+                                        editor.apply();
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     } else {

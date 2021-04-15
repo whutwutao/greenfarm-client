@@ -5,7 +5,11 @@
     <string name="title_cart">购物车</string>
     <string name="title_mine">我的</string>
     <string name="title_my_farm">我的农场</string>
+    <string name="title_farm_management">农场管理</string>
+    <string name="title_add_farm">添加农场</string>
+    <string name="title_farm_monitor">视频监控</string>
     <string name="rent_farm">农场出租</string>
+    <string name="add_farm">添加农场</string>
     <string name="telephone_hint">请输入手机号</string>
     <string name="pwd_hint">请输入密码</string>
     <string name="username_hint">请输入用户名</string>

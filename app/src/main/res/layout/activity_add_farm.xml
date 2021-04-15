@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.mine.myFarm.farmer.management.add.AddFarmActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#344261"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/title_add_farm"
+                android:textColor="@color/skin_text_white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_add_farm_description"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+        
+        <ImageView
+            android:id="@+id/iv_add_farm_description"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/description"/>
+
+        <EditText
+            android:id="@+id/et_add_farm_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_add_farm_description"
+            android:hint="输入关键词简要描述农场"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:background="@null"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add_farm_address"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <ImageView
+            android:id="@+id/iv_add_farm_address"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_address"/>
+
+        <EditText
+            android:id="@+id/et_add_farm_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_add_farm_address"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:hint="输入农场地址"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:background="@null"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add_farm_service_life"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <ImageView
+            android:id="@+id/iv_add_farm_service_life"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_service_life"/>
+
+        <EditText
+            android:id="@+id/et_add_farm_service_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_add_farm_service_life"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:inputType="number"
+            android:hint="输入使用年限"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:background="@null"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add_farm_area"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <ImageView
+            android:id="@+id/iv_add_farm_area"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_area"/>
+
+        <EditText
+            android:id="@+id/et_add_farm_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_add_farm_area"
+            android:layout_marginLeft="10dp"
+            android:hint="输入农场占地面积"
+            android:background="@null"
+            android:textColor="#404040"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add_farm_price"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:background="@drawable/layer_form">
+
+        <ImageView
+            android:id="@+id/iv_add_farm_price"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_price"/>
+
+        <EditText
+            android:id="@+id/et_add_farm_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_add_farm_price"
+            android:layout_centerVertical="true"
+            android:textColor="#404040"
+            android:layout_marginLeft="10dp"
+            android:hint="输入租金"
+            android:background="@null"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add_farm_upload_picture"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:background="@drawable/layer_form">
+
+        <ImageView
+            android:id="@+id/iv_add_farm_upload_picture"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_upload_picture"/>
+
+        <TextView
+            android:id="@+id/tv_add_farm_upload_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_add_farm_upload_picture"
+            android:layout_marginLeft="10dp"
+            android:text="点击选择农场图片"
+            android:textSize="16sp"
+            android:textColor="#404040"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/iv_add_farm_picture_to_upload"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_toLeftOf="@id/iv_add_farm_right_arrow"
+            android:src="@mipmap/farm_default"/>
+
+        <ImageView
+            android:id="@+id/iv_add_farm_right_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_right_arrow" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <Button
+        android:id="@+id/btn_add_farm"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_big_register_btn"
+        android:text="@string/finish"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+</LinearLayout>
