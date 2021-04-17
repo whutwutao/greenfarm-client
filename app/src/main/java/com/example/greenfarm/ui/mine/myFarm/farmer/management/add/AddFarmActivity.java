@@ -2,28 +2,63 @@ package com.example.greenfarm.ui.mine.myFarm.farmer.management.add;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.greenfarm.R;
+import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.ui.main.MainActivity;
+import com.example.greenfarm.utils.HttpUtil;
+import com.example.greenfarm.utils.ImageUtil;
+import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class AddFarmActivity extends AppCompatActivity {
 
-    RelativeLayout rlUploadPicture;
+    private EditText etDescription;
+
+    private EditText etAddress;
+
+    private EditText etServiceLife;
+
+    private EditText etArea;
+
+    private EditText etPrice;
+
+    private Uri imageUri;
+
+    private RelativeLayout rlUploadPicture;
 
     private Button btnAddFarm;
 
@@ -51,12 +86,76 @@ public class AddFarmActivity extends AppCompatActivity {
                 if (checkWrite!= ok && checkRead!=ok){
                     //申请权限，读和写都申请一下，不然容易出问题
                     ActivityCompat.requestPermissions(AddFarmActivity.this,WriteReadPermission,1);
-                }else openAlbum();
+                }else {
+                    openAlbum();
+                }
             }
         });
 
+        etDescription = findViewById(R.id.et_add_farm_description);
+        etAddress = findViewById(R.id.et_add_farm_address);
+        etServiceLife = findViewById(R.id.et_add_farm_service_life);
+        etArea = findViewById(R.id.et_add_farm_area);
+        etPrice = findViewById(R.id.et_add_farm_price);
+
+
         imageView = findViewById(R.id.iv_add_farm_picture_to_upload);
         btnAddFarm = findViewById(R.id.btn_add_farm);
+        btnAddFarm.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                imageView.setDrawingCacheEnabled(true);
+                Bitmap btp = null;
+                try {//获取图像
+                    btp = BitmapFactory.decodeStream(AddFarmActivity.this.getContentResolver().openInputStream(imageUri));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //调整大小
+                Bitmap bitmap = ImageUtil.zoomBitmap(btp,120,90);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,90,baos);
+                byte[] bytes = baos.toByteArray();
+                final Base64.Encoder encoder = Base64.getEncoder();
+                String encodePictureText = encoder.encodeToString(bytes);//图片编码成字符串
+                imageView.setDrawingCacheEnabled(false);
+                HashMap<String,String> dataToServer = new HashMap<>();
+                String description = etDescription.getText().toString();
+                String address = etAddress.getText().toString();
+                String serviceLife = etServiceLife.getText().toString();
+                String area = etArea.getText().toString();
+                String price = etPrice.getText().toString();
+                dataToServer.put("ownerId", String.valueOf(UserManager.currentUser.getId()));
+                dataToServer.put("description",description);
+                dataToServer.put("address",address);
+                dataToServer.put("serviceLife",serviceLife);
+                dataToServer.put("area",area);
+                dataToServer.put("price",price);
+                dataToServer.put("picture",encodePictureText);
+                Gson gson = new Gson();
+                String jsonToServer = gson.toJson(dataToServer);
+                try {
+                    HttpUtil.postWithOkHttp(HttpUtil.getUrl("/addFarm"),jsonToServer,new okhttp3.Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            showToast("网络连接错误");
+                        }
+
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            showToast("添加成功");
+                            String body = response.body().toString();
+                            Log.d("AddFarmActivity",body);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     void openAlbum(){
@@ -84,6 +183,7 @@ public class AddFarmActivity extends AppCompatActivity {
 
             //通过getData方法取得它的图片地址，后面的操作都是对这个地址的解析
             Uri uri=data.getData();
+
             //选择了一张在相册中id为26的照片，它的uri地址如下：
             //uri=content://com.android.providers.media.documents/document/image%3A26
 
@@ -104,6 +204,7 @@ public class AddFarmActivity extends AppCompatActivity {
                     String id=docId.split(":")[1];//id="26"
                     Uri baseUri=Uri.parse("content://media/external/images/media");
                     imageView.setImageURI(Uri.withAppendedPath(baseUri, id));
+                    imageUri = Uri.withAppendedPath(baseUri, id);
                     //直接传入Uri地址，该地址为content://media/external/images/media/26
 
                 }
@@ -112,4 +213,13 @@ public class AddFarmActivity extends AppCompatActivity {
         }
     }
 
+    private void showToast(String text) {
+        final Activity activity = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity,text,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

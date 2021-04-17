@@ -24,7 +24,7 @@ public class Farm {
     public Farm() {
     }
 
-    public Farm(int id, String telephone, int ownerId, String address, String description, String picturePath, int serviceLife, double area, double price, Date updateTime) {
+    public Farm(int id, int ownerId, String address, String description, String picturePath, int serviceLife, double area, double price, Date updateTime) {
         this.id = id;
         this.ownerId = ownerId;
         this.address = address;

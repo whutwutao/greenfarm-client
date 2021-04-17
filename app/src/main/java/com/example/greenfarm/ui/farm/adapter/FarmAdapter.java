@@ -27,13 +27,11 @@ public class FarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Farm item) {
         String pictureUrl = item.getPicturePath();
+        ImageView imageView = helper.getView(R.id.iv_farm_item);
         if (pictureUrl != null) {
-            ImageView imageView = helper.getView(R.id.iv_farm_item);
-
-            Glide.with(mFragment).load(pictureUrl).into(imageView);
+            Glide.with(mFragment).load(pictureUrl).override(120,90).into(imageView);
         } else {
-            ImageView imageView = helper.getView(R.id.iv_farm_item);
-            Glide.with(mFragment).load(R.mipmap.farm_default).into(imageView);
+            Glide.with(mFragment).load(R.mipmap.farm_default).override(120,90).into(imageView);
         }
 
 
