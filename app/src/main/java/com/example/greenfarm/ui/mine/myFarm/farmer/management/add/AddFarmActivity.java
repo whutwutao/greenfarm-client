@@ -30,6 +30,7 @@ import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.ui.main.MainActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.example.greenfarm.utils.ImageUtil;
+import com.example.greenfarm.utils.addressPicker.AddressPickTask;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +42,9 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
 
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -107,6 +111,10 @@ public class AddFarmActivity extends AppCompatActivity {
             public void onClick(View view) {
                 imageView.setDrawingCacheEnabled(true);
                 Bitmap btp = null;
+                if (imageUri == null) {
+                    showToast("请选择图片");
+                    return;
+                }
                 try {//获取图像
                     btp = BitmapFactory.decodeStream(AddFarmActivity.this.getContentResolver().openInputStream(imageUri));
                 } catch (IOException e) {
@@ -127,6 +135,10 @@ public class AddFarmActivity extends AppCompatActivity {
                 String serviceLife = etServiceLife.getText().toString();
                 String area = etArea.getText().toString();
                 String price = etPrice.getText().toString();
+                if (description.isEmpty() || address.isEmpty() || serviceLife.isEmpty() || area.isEmpty() || price.isEmpty()) {
+                    showToast("信息填写不全");
+                    return;
+                }
                 dataToServer.put("ownerId", String.valueOf(UserManager.currentUser.getId()));
                 dataToServer.put("description",description);
                 dataToServer.put("address",address);
@@ -213,6 +225,29 @@ public class AddFarmActivity extends AppCompatActivity {
         }
     }
 
+    public void onAddressPicker(View view) {
+        AddressPickTask task = new AddressPickTask(this);
+        task.setHideProvince(false);
+        task.setHideCounty(false);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                showToast("数据初始化失败");
+            }
+
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                if (county == null) {
+                    showToast(province.getAreaName() + city.getAreaName());
+                } else {
+                    showToast(province.getAreaName() + city.getAreaName() + county.getAreaName());
+                    etAddress.setText(province.getAreaName() + city.getAreaName() + county.getAreaName());
+                }
+            }
+        });
+        task.execute("贵州", "毕节", "纳雍");
+    }
+
     private void showToast(String text) {
         final Activity activity = this;
         runOnUiThread(new Runnable() {
@@ -222,4 +257,5 @@ public class AddFarmActivity extends AppCompatActivity {
             }
         });
     }
+
 }

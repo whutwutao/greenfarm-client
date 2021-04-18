@@ -68,7 +68,8 @@
         android:layout_height="78dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:background="@drawable/layer_form">
+        android:background="@drawable/layer_form"
+        android:onClick="onAddressPicker">
 
         <ImageView
             android:id="@+id/iv_add_farm_address"
@@ -84,10 +85,17 @@
             android:layout_toRightOf="@id/iv_add_farm_address"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:hint="输入农场地址"
+            android:hint="点击选择地址"
             android:textColor="#404040"
             android:textSize="16sp"
             android:background="@null"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_right_arrow" />
 
     </RelativeLayout>
 
@@ -119,7 +127,7 @@
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:inputType="number"
-            android:hint="输入使用年限"
+            android:hint="输入使用年限(年)"
             android:textColor="#404040"
             android:textSize="16sp"
             android:background="@null"/>
@@ -153,7 +161,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/iv_add_farm_area"
             android:layout_marginLeft="10dp"
-            android:hint="输入农场占地面积"
+            android:hint="输入农场占地面积(亩)"
+            android:inputType="number"
             android:background="@null"
             android:textColor="#404040"/>
 
@@ -187,7 +196,8 @@
             android:layout_centerVertical="true"
             android:textColor="#404040"
             android:layout_marginLeft="10dp"
-            android:hint="输入租金"
+            android:hint="输入租金(万元)"
+            android:inputType="number"
             android:background="@null"/>
 
     </RelativeLayout>
