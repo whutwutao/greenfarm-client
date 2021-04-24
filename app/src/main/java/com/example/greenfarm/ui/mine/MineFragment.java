@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.greenfarm.R;
 import com.example.greenfarm.management.UserManager;
+import com.example.greenfarm.ui.mine.myFarm.customer.MyFarm1Activity;
 import com.example.greenfarm.ui.mine.myFarm.farmer.MyFarmActivity;
 import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
@@ -62,8 +63,14 @@ public class MineFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //                showToast("点击了我的农场");
-                Intent intent = new Intent(getActivity(), MyFarmActivity.class);
+                Intent intent;
+                if (UserManager.currentUser.getIsFarmer() == 0) {
+                    intent = new Intent(getActivity(), MyFarm1Activity.class);
+                } else {
+                    intent = new Intent(getActivity(), MyFarmActivity.class);
+                }
                 startActivity(intent);
+
             }
         });
 

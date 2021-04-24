@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.greenfarm.R;
 import com.example.greenfarm.ui.mine.myFarm.farmer.management.add.AddFarmActivity;
+import com.example.greenfarm.ui.mine.myFarm.farmer.management.monitor.FarmListActivity;
 
 public class FarmManagementActivity extends AppCompatActivity {
 
@@ -27,7 +28,8 @@ public class FarmManagementActivity extends AppCompatActivity {
         rlFarmMonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("点击了视频监控");
+                Intent intent = new Intent(FarmManagementActivity.this, FarmListActivity.class);
+                startActivity(intent);
             }
         });
 

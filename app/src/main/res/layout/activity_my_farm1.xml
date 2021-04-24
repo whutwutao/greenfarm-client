@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".ui.mine.myFarm.farmer.MyFarmActivity">
+    tools:context=".ui.mine.myFarm.customer.MyFarm1Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/rent_farm_out" />
+                    android:src="@mipmap/rent_in" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/iv_farm_rent"
-                    android:text="出租记录"
+                    android:text="租赁信息"
                     android:textColor="#404040"
                     android:textSize="16sp" />
 
