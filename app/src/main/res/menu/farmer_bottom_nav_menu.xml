@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_plant"
+        android:icon="@mipmap/plant"
+        android:title="种植"/>
+
+    <item
+        android:id="@+id/navigation_farmer_mine"
+        android:icon="@mipmap/icon_mine"
+        android:title="@string/title_mine"/>
+
+</menu>

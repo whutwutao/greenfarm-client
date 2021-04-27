@@ -15,13 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Greenfarm">
-        <activity android:name=".ui.mine.myFarm.farmer.management.monitor.FarmListActivity"></activity>
-        <activity android:name=".ui.mine.myFarm.customer.MyFarm1Activity" />
-        <activity android:name=".ui.farm.farminfo.FarmInfoActivity" />
+        <activity android:name=".ui.mine.myFarm.customer.management.plant.CustomerPlantActivity"></activity>
+        <activity android:name=".ui.farm.search.FarmSearchActivity" />
+        <activity android:name=".ui.main.FarmerMainActivity" /> <!-- <activity android:name=".ui.mine.myFarm.farmer.management.monitor.FarmListActivity" /> -->
+        <activity android:name=".ui.farm.farmInfo.FarmInfoActivity" />
         <activity android:name=".ui.mine.myFarm.farmer.management.add.AddFarmActivity" />
-        <activity android:name=".ui.mine.myFarm.farmer.management.monitor.MonitorActivity" />
+        <activity android:name=".ui.mine.myFarm.customer.management.monitor.MonitorActivity" />
         <activity android:name=".ui.mine.myFarm.farmer.management.FarmManagementActivity" />
         <activity android:name=".ui.mine.myFarm.farmer.MyFarmActivity" />
+        <activity android:name=".ui.mine.myFarm.customer.CustomerMyFarmActivity" />
+        <activity android:name=".ui.mine.myFarm.customer.management.CustomerFarmManagementActivity" />
         <activity android:name=".ui.mine.setting.ChangeTelephoneActivity" />
         <activity android:name=".ui.mine.setting.ChangeUsernameActivity" />
         <activity android:name=".ui.mine.setting.ChangePasswordActivity" />

@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@mipmap/icon_home"
-        android:title="@string/title_home" />
+        android:icon="@mipmap/icon_product_black"
+        android:title="农产品" />
 
     <item
         android:id="@+id/navigation_farm"
-        android:icon="@mipmap/icon_farm_black"
-        android:title="@string/title_farm"/>
+        android:icon="@mipmap/farm"
+        android:title="农场"/>
 
 
     <item
         android:id="@+id/navigation_cart"
         android:icon="@mipmap/icon_cart"
-        android:title="@string/title_cart" />
+        android:title="@string/title_cart"/>
 
     <item
         android:id="@+id/navigation_mine"
         android:icon="@mipmap/icon_mine"
-        android:title="@string/title_mine" />
+        android:title="@string/title_mine"/>
 </menu>

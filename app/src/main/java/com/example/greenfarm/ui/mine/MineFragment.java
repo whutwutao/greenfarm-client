@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.greenfarm.R;
 import com.example.greenfarm.management.UserManager;
-import com.example.greenfarm.ui.mine.myFarm.customer.MyFarm1Activity;
+import com.example.greenfarm.ui.mine.myFarm.customer.CustomerMyFarmActivity;
 import com.example.greenfarm.ui.mine.myFarm.farmer.MyFarmActivity;
 import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
@@ -41,7 +41,7 @@ public class MineFragment extends Fragment {
         View root = inflater.inflate(R.layout.mine_fragment, container, false);
 
         tvUsername = root.findViewById(R.id.tv_mine_username);
-        tvUsername.setText(UserManager.currentUser.getUsername());
+//        tvUsername.setText(UserManager.currentUser.getUsername());
 
         tvRole = root.findViewById(R.id.tv_mine_role);
         if (UserManager.currentUser.getIsFarmer() == 0) {
@@ -65,7 +65,7 @@ public class MineFragment extends Fragment {
 //                showToast("点击了我的农场");
                 Intent intent;
                 if (UserManager.currentUser.getIsFarmer() == 0) {
-                    intent = new Intent(getActivity(), MyFarm1Activity.class);
+                    intent = new Intent(getActivity(), CustomerMyFarmActivity.class);
                 } else {
                     intent = new Intent(getActivity(), MyFarmActivity.class);
                 }
@@ -83,8 +83,6 @@ public class MineFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
 
         return root;
     }

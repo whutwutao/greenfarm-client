@@ -1,4 +1,4 @@
-package com.example.greenfarm.ui.mine.myFarm.farmer.management.monitor.adapter;
+package com.example.greenfarm.ui.mine.myFarm.customer.management.monitor.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.Farm;
-import com.example.greenfarm.ui.farm.farminfo.FarmInfoActivity;
-import com.example.greenfarm.ui.mine.myFarm.farmer.management.monitor.MonitorActivity;
+import com.example.greenfarm.ui.mine.myFarm.customer.management.monitor.MonitorActivity;
 import com.google.gson.Gson;
 
 import java.util.List;

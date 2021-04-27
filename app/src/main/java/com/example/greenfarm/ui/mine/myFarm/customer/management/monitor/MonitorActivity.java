@@ -1,13 +1,12 @@
-package com.example.greenfarm.ui.mine.myFarm.farmer.management.monitor;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.greenfarm.ui.mine.myFarm.customer.management.monitor;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.greenfarm.R;
-import com.example.greenfarm.ui.main.MainActivity;
 import com.example.greenfarm.utils.videoPlayer.VideoPlayerIJK;
 import com.example.greenfarm.utils.videoPlayer.VideoPlayerListener;
 

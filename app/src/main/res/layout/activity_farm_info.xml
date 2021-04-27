@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.farm.farminfo.FarmInfoActivity">
+    tools:context=".ui.farm.farmInfo.FarmInfoActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -39,7 +39,7 @@
             <ImageView
                 android:id="@+id/iv_farm_info"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="350dp"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -176,11 +176,6 @@
                     android:layout_weight="1"/>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:background="@color/black"/>
 
         </LinearLayout>
     </ScrollView>

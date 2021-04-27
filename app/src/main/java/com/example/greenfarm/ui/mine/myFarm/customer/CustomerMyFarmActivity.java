@@ -1,17 +1,20 @@
-package com.example.greenfarm.ui.mine.myFarm.farmer.management.monitor;
+package com.example.greenfarm.ui.mine.myFarm.customer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.greenfarm.R;
 import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.pojo.Farm;
-import com.example.greenfarm.ui.farm.adapter.FarmAdapter;
-import com.example.greenfarm.ui.mine.myFarm.farmer.management.monitor.adapter.FarmMonitorAdapter;
+import com.example.greenfarm.ui.adapter.CustomerFarmAdapter;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,61 +29,68 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class FarmListActivity extends AppCompatActivity {
+public class CustomerMyFarmActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private List<Farm> farmList = new ArrayList<>();
+    private List<Farm> farmList = new ArrayList<>();//农场数据列表
 
-    private FarmMonitorAdapter monitorAdapter;
+    private CustomerFarmAdapter adapter;
+
+    private TextView tvNoFarmWarning;//提示没有农场
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farm_list);
+        setContentView(R.layout.activity_customer_my_farm);
 
         getData();
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        recyclerView = findViewById(R.id.recyclerview_farm_to_monitor);
+        System.out.println(farmList);
+        recyclerView = findViewById(R.id.recyclerview_customer_my_farm);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        Log.d("FarmListActivity",farmList.toString());
-        monitorAdapter = new FarmMonitorAdapter(this,R.layout.recyclerview_item_farm,farmList);
+        adapter = new CustomerFarmAdapter(R.layout.recyclerview_item_farm,farmList,this);
+        recyclerView.setAdapter(adapter);
 
-        recyclerView.setAdapter(monitorAdapter);
+        tvNoFarmWarning = findViewById(R.id.tv_warning_no_farm);
 
+        if (farmList.isEmpty()) {
+            tvNoFarmWarning.setVisibility(View.VISIBLE);
+        }
     }
+
 
     private void getData() {
         Gson gson = new Gson();
-        HashMap<String,Integer> map = new HashMap<>();
-        map.put("ownerId", UserManager.currentUser.getId());
-        String jsonToServer = gson.toJson(map);
+        String jsonToServer = gson.toJson(UserManager.currentUser);
         try {
-            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/getFarmByOwnerId"),jsonToServer,new okhttp3.Callback() {
+            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/getCustomerFarmList"),jsonToServer,new okhttp3.Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    Log.d("FarmListActivity","网络连接错误");
+                    Log.d("CustomerMyFarmActivity","网络错误");
                 }
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                     String body = response.body().string();
-                    Log.d("FarmListActivity",body);
+                    Log.d("CustomerMyFarmActivity",body);
                     Gson gson1 = new Gson();
                     List<Farm> farms = gson1.fromJson(body,new TypeToken<List<Farm>>(){}.getType());
                     if (farms != null) {
                         if (!farms.isEmpty()) {
+                            farmList.clear();
                             for (Farm farm : farms) {
                                 farmList.add(farm);
                             }
                         }
                     }
+
                 }
             });
         } catch (IOException e) {

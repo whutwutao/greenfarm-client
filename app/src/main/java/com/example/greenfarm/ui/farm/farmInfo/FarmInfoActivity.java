@@ -1,9 +1,11 @@
-package com.example.greenfarm.ui.farm.farminfo;
+package com.example.greenfarm.ui.farm.farmInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.greenfarm.R;
+import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
@@ -74,6 +77,14 @@ public class FarmInfoActivity extends AppCompatActivity {
 
         tvTelephone = findViewById(R.id.tv_farm_info_telephone);
         getOwnerTelephone(strFarm);
+
+        btnRentNow = findViewById(R.id.btn_rent_now);//立即租赁按钮
+        btnRentNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rentFarm(farm.getId(),UserManager.currentUser.getId());
+            }
+        });
     }
 
     private void getOwnerTelephone(String strFarm) {
@@ -112,4 +123,48 @@ public class FarmInfoActivity extends AppCompatActivity {
     }
 
 
+    private void rentFarm(int farmId, int customerId) {
+        HashMap<String,Integer> farmOrder = new HashMap<>();
+        //使用map传递订单的农场编号和客户编号信息
+        farmOrder.put("farmId",farmId);
+        farmOrder.put("customerId",customerId);
+        Gson gson = new Gson();
+        String jsonToServer = gson.toJson(farmOrder);
+
+        try {
+            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/addFarmOrder"),jsonToServer, new okhttp3.Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(FarmInfoActivity.this,"网络错误",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String body = response.body().string();
+                    Gson gson = new Gson();
+                    Log.d("FarmInfoActivity",body);
+                    HashMap<String,String> result = gson.fromJson(body,new TypeToken<HashMap<String,String>>(){}.getType());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if ("succeed".equals(result.get("result"))) {
+                                Toast.makeText(FarmInfoActivity.this,"订单已提交",Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(FarmInfoActivity.this,"订单提交失败",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

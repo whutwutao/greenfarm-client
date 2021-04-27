@@ -2,6 +2,7 @@ package com.example.greenfarm.ui.farm;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,6 +26,7 @@ import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.ui.custom.CustomLoadMoreView;
 import com.example.greenfarm.ui.farm.adapter.FarmAdapter;
+import com.example.greenfarm.ui.farm.search.FarmSearchActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,6 +44,8 @@ import okhttp3.Response;
 public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private FarmViewModel mViewModel;
+
+    private EditText etSearchFarm;//农场搜索输入框
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -60,6 +65,16 @@ public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.farm_fragment, container, false);
+
+        etSearchFarm = root.findViewById(R.id.et_search);
+        etSearchFarm.setFocusable(false);
+        etSearchFarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FarmSearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         swipeRefreshLayout = root.findViewById(R.id.refresh_farm_item);
 

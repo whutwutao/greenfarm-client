@@ -1,12 +1,12 @@
 package com.example.greenfarm.ui.farm.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,11 +18,12 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class FarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
-    Fragment mFragment;
-    public FarmAdapter(Fragment fragment, int layoutResId, @Nullable List<Farm> data) {
+public class FarmSearchAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
+    private Context mContext;
+
+    public FarmSearchAdapter(int layoutResId, @Nullable List<Farm> data, Context mContext) {
         super(layoutResId, data);
-        mFragment = fragment;
+        this.mContext = mContext;
     }
 
     @Override
@@ -31,9 +32,9 @@ public class FarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
         ImageView imageView = helper.getView(R.id.iv_farm_item);
 
         if (pictureUrl != null) {
-            Glide.with(mFragment).load(pictureUrl).override(120,90).into(imageView);
+            Glide.with(mContext).load(pictureUrl).override(120,90).into(imageView);
         } else {
-            Glide.with(mFragment).load(R.mipmap.farm_default).override(120,90).into(imageView);
+            Glide.with(mContext).load(R.mipmap.farm_default).override(120,90).into(imageView);
         }
 
 
@@ -47,12 +48,12 @@ public class FarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
         llOfItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mFragment.getActivity(), FarmInfoActivity.class);
+                Intent intent = new Intent(mContext, FarmInfoActivity.class);
                 Gson gson = new Gson();
                 item.setUpdateTime(null);//防止因为Date类型无法转换而出错
                 String strFarm = gson.toJson(item);
                 intent.putExtra("farm",strFarm);
-                mFragment.getActivity().startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
     }
