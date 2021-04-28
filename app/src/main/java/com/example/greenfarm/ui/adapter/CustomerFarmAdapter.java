@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.ui.mine.myFarm.customer.management.CustomerFarmManagementActivity;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -48,6 +49,9 @@ public class CustomerFarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, CustomerFarmManagementActivity.class);
+                Gson gson = new Gson();
+                String jsonFarm = gson.toJson(item);
+                intent.putExtra("farm",jsonFarm);
                 mContext.startActivity(intent);
             }
         });
