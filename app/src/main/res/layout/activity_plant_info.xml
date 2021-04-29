@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.mine.myFarm.farmer.management.plant.PlantInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/shape_my_info_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="种植详情"
+            android:textColor="@color/skin_text_white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <TextView
+            android:id="@+id/tv_plant_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名称："
+            android:textSize="16sp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_plant_info_name_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_plant_info_name"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:text="西蓝花"
+            android:background="@null"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <TextView
+            android:id="@+id/tv_plant_info_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注："
+            android:textSize="16sp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_plant_info_description_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_plant_info_description"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:text="不使用农药和化肥"
+            android:background="@null"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <TextView
+            android:id="@+id/tv_plant_info_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量："
+            android:textSize="16sp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_plant_info_amount_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_plant_info_amount"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:text="1吨"
+            android:background="@null"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/layer_form">
+
+        <TextView
+            android:id="@+id/tv_plant_info_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="状态："
+            android:textSize="16sp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_plant_info_status_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_plant_info_status"
+            android:textColor="#404040"
+            android:textSize="16sp"
+            android:text="未种植"
+            android:background="@null"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C8C5C5" />
+
+    <Button
+        android:id="@+id/btn_plant_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_big_register_btn"
+        android:text="确认种植"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_plant_finish"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_login_btn"
+        android:text="种植完成"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="gone"/>
+
+</LinearLayout>
