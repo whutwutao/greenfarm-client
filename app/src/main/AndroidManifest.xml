@@ -15,7 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Greenfarm">
-        <activity android:name=".ui.mine.myFarm.farmer.management.plant.PlantInfoActivity"></activity>
+        <activity android:name=".ui.mine.myOrder.customer.CustomerFarmOrderProcessedActivity"></activity>
+        <activity android:name=".ui.mine.myOrder.customer.CustomerFarmOrderNotProcessedActivity" />
+        <activity android:name=".ui.mine.myOrder.farmer.FarmOrderProcessedActivity" />
+        <activity android:name=".ui.mine.myOrder.farmer.FarmOrderNotProcessedActivity" />
+        <activity android:name=".ui.mine.myOrder.FarmOrderActivity" />
+        <activity android:name=".ui.mine.myOrder.MyOrderActivity" />
+        <activity android:name=".ui.mine.myFarm.farmer.management.plant.PlantInfoActivity" />
         <activity android:name=".ui.mine.myFarm.farmer.management.plant.FarmerPlantActivity" />
         <activity android:name=".ui.mine.myFarm.farmer.management.customerInfo.CustomerInfoActivity" />
         <activity android:name=".ui.mine.myFarm.customer.management.plant.CustomerAddPlantActivity" />

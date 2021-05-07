@@ -21,6 +21,7 @@ import com.example.greenfarm.R;
 import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.ui.mine.myFarm.customer.CustomerMyFarmActivity;
 import com.example.greenfarm.ui.mine.myFarm.farmer.MyFarmActivity;
+import com.example.greenfarm.ui.mine.myOrder.MyOrderActivity;
 import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
 public class MineFragment extends Fragment {
@@ -54,7 +55,8 @@ public class MineFragment extends Fragment {
         rlMyOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("点击了我的订单");
+                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+                startActivity(intent);
             }
         });
 
