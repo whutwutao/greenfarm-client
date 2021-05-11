@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.FarmOrderBean;
+import com.example.greenfarm.utils.HttpUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,9 +31,9 @@ public class CustomerFarmOrderAdapter extends BaseQuickAdapter<FarmOrderBean, Ba
         ImageView imageView = helper.getView(R.id.iv_farm_order_select);
         imageView.setVisibility(View.GONE);
         ImageView farmPic = helper.getView(R.id.iv_farm_order_farm);
-        String pictureUrl = item.getFarm().getPicturePath();
+        String pictureUrl = HttpUtil.getUrl(item.getFarm().getPicturePath());
         if (pictureUrl != null) {
-            Glide.with(mContext).load(pictureUrl).override(120,90).into(farmPic);
+            Glide.with(mContext).load(HttpUtil.getUrl(pictureUrl)).override(120,90).into(farmPic);
         } else {
             Glide.with(mContext).load(R.mipmap.farm_default).override(120,90).into(farmPic);
         }

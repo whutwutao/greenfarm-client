@@ -71,6 +71,8 @@ public class CustomerPlantActivity extends AppCompatActivity {
         tvNoPlantWarning = findViewById(R.id.tv_warning_no_plant);
         if (plantList.isEmpty()) {
             tvNoPlantWarning.setVisibility(View.VISIBLE);
+        } else {
+            tvNoPlantWarning.setVisibility(View.GONE);
         }
 
         btnAddPlant = findViewById(R.id.floating_btn_add_plant);
@@ -108,8 +110,8 @@ public class CustomerPlantActivity extends AppCompatActivity {
 
 
                     List<Plant> plants = gson.fromJson(body,new TypeToken<List<Plant>>(){}.getType());
+                    plantList.clear();
                     if (plants != null && !plants.isEmpty()) {
-                        plantList.clear();
                         for (Plant plant : plants) {
                             plantList.add(plant);
                         }
@@ -140,6 +142,11 @@ public class CustomerPlantActivity extends AppCompatActivity {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+        if(plantList.isEmpty()) {
+            tvNoPlantWarning.setVisibility(View.VISIBLE);
+        } else {
+            tvNoPlantWarning.setVisibility(View.GONE);
         }
         adapter.setNewData(plantList);
     }

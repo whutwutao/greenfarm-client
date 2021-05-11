@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.ui.farm.farmInfo.FarmInfoActivity;
+import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class FarmSearchAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
         ImageView imageView = helper.getView(R.id.iv_farm_item);
 
         if (pictureUrl != null) {
-            Glide.with(mContext).load(pictureUrl).override(120,90).into(imageView);
+            Glide.with(mContext).load(HttpUtil.getUrl(pictureUrl)).override(120,90).into(imageView);
         } else {
             Glide.with(mContext).load(R.mipmap.farm_default).override(120,90).into(imageView);
         }

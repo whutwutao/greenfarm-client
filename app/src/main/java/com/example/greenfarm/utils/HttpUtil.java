@@ -16,7 +16,7 @@ public class HttpUtil {
 
     public static String networkProtocol = "http://";
 
-    public static String serverIP = "192.168.43.192";
+    public static String serverIP = "";
 
     public static String serverPort = ":8081";
 

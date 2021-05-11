@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "信息输入不完整",Toast.LENGTH_SHORT).show();
                     break;
                 }
+                //设置服务器ip
                 HttpUtil.serverIP = ipText.getText().toString();
                 User user = new User(null,loginPasswordText.getText().toString(),loginPhoneText.getText().toString());
                 Gson gson = new Gson();

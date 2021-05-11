@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.ui.mine.myFarm.customer.management.CustomerFarmManagementActivity;
+import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class CustomerFarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> 
         ImageView imageView = helper.getView(R.id.iv_farm_item);
 
         if (pictureUrl != null) {
-            Glide.with(mContext).load(pictureUrl).override(120,90).into(imageView);
+            Glide.with(mContext).load(HttpUtil.getUrl(pictureUrl)).override(120,90).into(imageView);
         } else {
             Glide.with(mContext).load(R.mipmap.farm_default).override(120,90).into(imageView);
         }
@@ -41,7 +42,7 @@ public class CustomerFarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> 
         helper.setText(R.id.tv_farm_description, item.getDescription());
         helper.setText(R.id.tv_farm_address, item.getAddress());
         helper.setText(R.id.tv_farm_area, Double.toString(item.getArea()) + "亩");
-        helper.setText(R.id.tv_farm_price, Double.toString(item.getPrice()) + "万");
+        helper.setText(R.id.tv_farm_price, Double.toString(item.getPrice()) + "元");
         helper.setText(R.id.tv_farm_service_life, Integer.toString(item.getServiceLife()) + "年");
 
         LinearLayout llOfItem = helper.getView(R.id.rl_recyclerview_item_farm);

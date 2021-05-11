@@ -21,6 +21,7 @@ import com.example.greenfarm.R;
 import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.ui.mine.myFarm.customer.CustomerMyFarmActivity;
 import com.example.greenfarm.ui.mine.myFarm.farmer.MyFarmActivity;
+import com.example.greenfarm.ui.mine.myMessage.MessageActivity;
 import com.example.greenfarm.ui.mine.myOrder.MyOrderActivity;
 import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
@@ -75,6 +76,16 @@ public class MineFragment extends Fragment {
 
             }
         });
+
+        RelativeLayout rlMessage = root.findViewById(R.id.rl_my_message);
+        rlMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MessageActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         RelativeLayout rlSetting = root.findViewById(R.id.rl_setting);
         rlSetting.setOnClickListener(new View.OnClickListener() {

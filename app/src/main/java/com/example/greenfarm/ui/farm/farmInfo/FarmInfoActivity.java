@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.greenfarm.R;
 import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.pojo.Farm;
+import com.example.greenfarm.pojo.User;
+import com.example.greenfarm.ui.chat.ChatActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -43,9 +45,13 @@ public class FarmInfoActivity extends AppCompatActivity {
 
     TextView tvTelephone;
 
-    Button btnAddToCart;
+    ImageView ivChat;
 
     Button btnRentNow;
+
+    Farm mFarm;
+
+    User owner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +62,9 @@ public class FarmInfoActivity extends AppCompatActivity {
         String strFarm = intent.getStringExtra("farm");
         Gson gson = new Gson();
         Farm farm = gson.fromJson(strFarm,Farm.class);
-
+        mFarm = farm;
         imageView = findViewById(R.id.iv_farm_info);
-        Glide.with(this).load(farm.getPicturePath()).into(imageView);
+        Glide.with(this).load(HttpUtil.getUrl(farm.getPicturePath())).into(imageView);
 
         tvDescription = findViewById(R.id.tv_farm_info_description);
         tvDescription.setText(farm.getDescription());
@@ -70,13 +76,13 @@ public class FarmInfoActivity extends AppCompatActivity {
         tvServiceLife.setText(String.valueOf(farm.getServiceLife()) + "（年）");
 
         tvPrice = findViewById(R.id.tv_farm_info_price);
-        tvPrice.setText(String.valueOf(farm.getPrice()) + "（万）");
+        tvPrice.setText(String.valueOf(farm.getPrice()) + "（元）");
 
         tvArea = findViewById(R.id.tv_farm_info_area);
         tvArea.setText(String.valueOf(farm.getArea()) + "（亩）");
 
         tvTelephone = findViewById(R.id.tv_farm_info_telephone);
-        getOwnerTelephone(strFarm);
+        getOwner(strFarm);
 
         btnRentNow = findViewById(R.id.btn_rent_now);//立即租赁按钮
         btnRentNow.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +91,24 @@ public class FarmInfoActivity extends AppCompatActivity {
                 rentFarm(farm.getId(),UserManager.currentUser.getId());
             }
         });
+
+        //联系商家按钮
+        ivChat = findViewById(R.id.iv_chat);
+        ivChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FarmInfoActivity.this, ChatActivity.class);
+                intent.putExtra("friend",new Gson().toJson(owner));//将商家对象传入ChatActivity
+                startActivity(intent);
+            }
+        });
     }
 
-    private void getOwnerTelephone(String strFarm) {
+    private void getOwner(String strFarm) {
 
 
         try {
-            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/getOwnerTelephone"),strFarm, new okhttp3.Callback() {
+            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/getOwner"),strFarm, new okhttp3.Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     runOnUiThread(new Runnable() {
@@ -107,8 +124,11 @@ public class FarmInfoActivity extends AppCompatActivity {
                     String body = response.body().string();
                     Gson gson = new Gson();
 
-                    HashMap<String,String> result = gson.fromJson(body,new TypeToken<HashMap<String,String>>(){}.getType());
-                    final String telephone = result.get("telephone");
+                    HashMap<String,User> result = gson.fromJson(body,new TypeToken<HashMap<String,User>>(){}.getType());
+
+                    owner = result.get("owner");
+                    Log.d("FarmInfoActivity", owner.toString());
+                    final String telephone = owner.getTelephone();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

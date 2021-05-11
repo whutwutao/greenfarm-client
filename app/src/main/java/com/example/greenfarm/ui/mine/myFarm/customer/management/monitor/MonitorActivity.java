@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.greenfarm.R;
+import com.example.greenfarm.utils.HttpUtil;
 import com.example.greenfarm.utils.videoPlayer.VideoPlayerIJK;
 import com.example.greenfarm.utils.videoPlayer.VideoPlayerListener;
 
@@ -20,7 +21,7 @@ public class MonitorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitor);
 
-        String urlStr = "rtmp://192.168.43.192:1935/live/room";
+        String urlStr = "rtmp://"+ HttpUtil.serverIP+":1935/live/room";
 
         try {
             IjkMediaPlayer.loadLibrariesOnce(null);
