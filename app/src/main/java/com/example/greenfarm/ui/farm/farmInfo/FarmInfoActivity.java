@@ -17,6 +17,7 @@ import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.ui.chat.ChatActivity;
+import com.example.greenfarm.ui.payment.PayForFarmActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -88,7 +89,10 @@ public class FarmInfoActivity extends AppCompatActivity {
         btnRentNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rentFarm(farm.getId(),UserManager.currentUser.getId());
+//                rentFarm(farm.getId(),UserManager.currentUser.getId());
+                Intent intent1 = new Intent(FarmInfoActivity.this, PayForFarmActivity.class);
+                intent1.putExtra("farm",new Gson().toJson(mFarm));
+                startActivity(intent1);
             }
         });
 

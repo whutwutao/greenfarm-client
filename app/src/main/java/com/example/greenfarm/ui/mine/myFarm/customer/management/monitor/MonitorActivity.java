@@ -26,11 +26,14 @@ public class MonitorActivity extends AppCompatActivity {
         try {
             IjkMediaPlayer.loadLibrariesOnce(null);
             IjkMediaPlayer.native_profileBegin("libijkplayer.so");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
         VideoPlayerIJK ijkPlayer = findViewById(R.id.videoView);
+
         ijkPlayer.setVideoPath(urlStr);
 
         ijkPlayer.setListener(new VideoPlayerListener() {

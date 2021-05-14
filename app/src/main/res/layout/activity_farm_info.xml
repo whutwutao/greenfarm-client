@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <com.example.greenfarm.myLayout.ResizableImageView
                 android:id="@+id/iv_farm_info"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="wrap_content"
                 android:scaleType="fitXY"/>
 
             <TextView

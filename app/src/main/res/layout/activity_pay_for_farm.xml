@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.payment.PayForFarmActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="收银台"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:gravity="center_vertical|center_horizontal"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="支付金额"
+            android:textSize="14sp"
+            android:textColor="#8A8888"
+            android:gravity="center_vertical|center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/tv_payment_amount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="￥200.0"
+            android:textSize="45sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:gravity="center_horizontal|center_vertical"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E4E1E1"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:src="@mipmap/icon_alipay_recommend"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <Button
+            android:id="@+id/btn_pay_for_farm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="payV2"
+            android:text="支付宝支付"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:background="#145CFE"/>
+    </LinearLayout>
+
+
+</LinearLayout>

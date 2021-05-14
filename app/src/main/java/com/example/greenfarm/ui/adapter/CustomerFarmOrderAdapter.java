@@ -1,6 +1,7 @@
 package com.example.greenfarm.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,8 @@ public class CustomerFarmOrderAdapter extends BaseQuickAdapter<FarmOrderBean, Ba
         ImageView imageView = helper.getView(R.id.iv_farm_order_select);
         imageView.setVisibility(View.GONE);
         ImageView farmPic = helper.getView(R.id.iv_farm_order_farm);
-        String pictureUrl = HttpUtil.getUrl(item.getFarm().getPicturePath());
+        String pictureUrl = item.getFarm().getPicturePath();
+        Log.d("CustomerFarmOrder",HttpUtil.getUrl(pictureUrl));
         if (pictureUrl != null) {
             Glide.with(mContext).load(HttpUtil.getUrl(pictureUrl)).override(120,90).into(farmPic);
         } else {
