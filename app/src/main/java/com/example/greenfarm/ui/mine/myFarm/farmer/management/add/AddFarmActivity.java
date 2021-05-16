@@ -158,6 +158,7 @@ public class AddFarmActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                             showToast("添加成功");
+                            finish();
                             String body = response.body().toString();
                             Log.d("AddFarmActivity",body);
                         }

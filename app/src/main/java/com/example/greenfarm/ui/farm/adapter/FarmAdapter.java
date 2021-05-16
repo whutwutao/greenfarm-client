@@ -41,7 +41,7 @@ public class FarmAdapter extends BaseQuickAdapter<Farm, BaseViewHolder> {
         helper.setText(R.id.tv_farm_description, item.getDescription());
         helper.setText(R.id.tv_farm_address, item.getAddress());
         helper.setText(R.id.tv_farm_area, Double.toString(item.getArea()) + "亩");
-        helper.setText(R.id.tv_farm_price, Double.toString(item.getPrice()) + "元");
+        helper.setText(R.id.tv_farm_price, Double.toString(item.getPrice()) + "\n元/年");
         helper.setText(R.id.tv_farm_service_life, Integer.toString(item.getServiceLife()) + "年");
 
         LinearLayout llOfItem = helper.getView(R.id.rl_recyclerview_item_farm);

@@ -168,7 +168,7 @@
                     android:inputType="text"
                     android:textColor="@color/black"
                     android:textColorHint="#bcbcbc"
-                    android:textSize="18sp" />
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:id="@+id/iv_verification_code"

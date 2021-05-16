@@ -40,6 +40,7 @@ public class FarmerProcessedFarmOrderAdapter extends BaseQuickAdapter<FarmOrderB
         helper.setText(R.id.tv_farm_order_customer_name,"客户用户名："+item.getCustomer().getUsername());
         helper.setText(R.id.tv_farm_order_farm_address,"农场地址："+item.getFarm().getAddress());
         helper.setText(R.id.tv_farm_order_customer_telephone,"客户手机号："+item.getCustomer().getTelephone());
+        helper.setText(R.id.tv_farm_order_address,"收货地址："+item.getOrder().getAddress());
         Date date = item.getOrder().getUpdateTime();
         SimpleDateFormat f = new SimpleDateFormat("yyyy年MM月dd日HH点mm分ss秒");
         String dateText = f.format(date);

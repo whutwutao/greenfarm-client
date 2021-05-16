@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.greenfarm.R;
@@ -52,6 +54,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+
+    private final static int NETWORK_ERR = -1;
+    private final static int GET_FARM_FAIL = 0;
+    private final static int GET_FARM_SUCCEED = 2;
 
     private FarmViewModel mViewModel;
 
@@ -84,14 +90,35 @@ public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             "江西省", "山东省", "河南省", "湖北省", "湖南省",
             "广东省", "广西省", "海南省", "重庆市", "四川省",
             "贵州省", "云南省", "西藏藏族自治区", "陕西省", "甘肃省",
-            "青海省", "宁夏省", "新疆维吾尔自治区"
+            "青海省", "宁夏回族自治区省", "新疆维吾尔自治区"
     };
     private String area[] = {"不限", "1-5亩", "6-10亩", "10亩以上"};
     private String price[] = {"不限", "1000-5000元/年","5000-10000元/年","10000元/年以上"};
-    private String plant[] = {"不限", "番茄", "黄瓜", "白菜", "土豆", "茄子"};
+    private String plant[] = {"不限", "番茄", "黄瓜", "白菜", "土豆", "茄子", "萝卜","山药","蘑菇"};
     private String serviceLife[] = {"不限", "1-5年", "5年以上"};
 
     private Condition condition = new Condition();//查询条件
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch(msg.what) {
+                case NETWORK_ERR:
+                    Toast.makeText(getContext(),"网络连接错误",Toast.LENGTH_SHORT).show();
+                    break;
+                case GET_FARM_FAIL:
+                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(),"数据获取失败",Toast.LENGTH_SHORT).show();
+                    break;
+                case GET_FARM_SUCCEED:
+                    Toast.makeText(getContext(),"数据获取成功",Toast.LENGTH_SHORT).show();
+                    farmAdapter.setNewData(farmList);
+                    swipeRefreshLayout.setRefreshing(false);
+                    break;
+            }
+        }
+    };
+
 
     public static FarmFragment newInstance() {
         return new FarmFragment();
@@ -353,7 +380,9 @@ public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             HttpUtil.postWithOkHttp(HttpUtil.getUrl("/getFarmByMultiCondition") , jsonToServer, new okhttp3.Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    Log.d("FarmFragment", "网络连接错误");
+                    Message msg = Message.obtain();
+                    msg.what = NETWORK_ERR;
+                    mHandler.sendMessage(msg);
                 }
 
                 @Override
@@ -368,8 +397,14 @@ public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             for (Farm farm : farms) {
                                 farmList.add(farm);
                             }
+                            Message msg = Message.obtain();
+                            msg.what = GET_FARM_SUCCEED;
+                            mHandler.sendMessage(msg);
                         } else {
                             hasMore = false;
+                            Message msg = Message.obtain();
+                            msg.what = GET_FARM_FAIL;
+                            mHandler.sendMessage(msg);
                         }
 
                     }
@@ -386,13 +421,6 @@ public class FarmFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void run() {
                 getData(true);
-                try {
-                    Thread.sleep(500);//主线程睡半秒是因为getData中开启了子线程加载数据，要等数据加载完才能进行UI的操作
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                farmAdapter.setNewData(farmList);
-                swipeRefreshLayout.setRefreshing(false);
             }
         },1000);
     }

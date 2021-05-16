@@ -39,6 +39,7 @@ public class PayForFarmActivity extends AppCompatActivity {
 
     private HashMap<String, String> requestData;//获取orderInfo的请求参数
     private Farm mFarm;//即将租赁的农场
+    private String address;//收货地址
     private static final int SDK_PAY_FLAG = 1;
     private String orderInfo;
 
@@ -62,6 +63,8 @@ public class PayForFarmActivity extends AppCompatActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         rentFarm(mFarm.getId(), UserManager.currentUser.getId());
                         Log.d("PayForFarmActivity","支付成功");
+
+
                     } else {
                         Log.d("PayForFarmActivity","支付失败");
                     }
@@ -81,6 +84,7 @@ public class PayForFarmActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String jsonFarm = intent.getStringExtra("farm");
         mFarm = new Gson().fromJson(jsonFarm,Farm.class);
+        address = intent.getStringExtra("address");
         TextView tvTotalAmount = findViewById(R.id.tv_payment_amount);
         tvTotalAmount.setText("￥"+ mFarm.getPrice() * mFarm.getServiceLife());
     }
@@ -145,10 +149,11 @@ public class PayForFarmActivity extends AppCompatActivity {
 
 
     private void rentFarm(int farmId, int customerId) {
-        HashMap<String,Integer> farmOrder = new HashMap<>();
+        HashMap<String,String> farmOrder = new HashMap<>();
         //使用map传递订单的农场编号和客户编号信息
-        farmOrder.put("farmId",farmId);
-        farmOrder.put("customerId",customerId);
+        farmOrder.put("farmId",String.valueOf(farmId));
+        farmOrder.put("customerId",String.valueOf(customerId));
+        farmOrder.put("address",address);
         Gson gson = new Gson();
         String jsonToServer = gson.toJson(farmOrder);
 
@@ -175,7 +180,6 @@ public class PayForFarmActivity extends AppCompatActivity {
                         public void run() {
                             if ("succeed".equals(result.get("result"))) {
 //                                Toast.makeText(FarmInfoActivity.this,"订单已提交",Toast.LENGTH_SHORT).show();
-                                finish();
                             } else {
 //                                Toast.makeText(FarmInfoActivity.this,"订单提交失败",Toast.LENGTH_SHORT).show();
                             }

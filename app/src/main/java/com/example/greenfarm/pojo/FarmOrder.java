@@ -13,15 +13,18 @@ public class FarmOrder {
 
     private Date updateTime;//订单最近一次更新的时间
 
+    private String address;//收货地址
+
     public FarmOrder() {
     }
 
-    public FarmOrder(int id, int farmId, int customerId, int status, Date updateTime) {
+    public FarmOrder(int id, int farmId, int customerId, int status, Date updateTime, String address) {
         this.id = id;
         this.farmId = farmId;
         this.customerId = customerId;
         this.status = status;
         this.updateTime = updateTime;
+        this.address = address;
     }
 
     public int getId() {
@@ -64,6 +67,14 @@ public class FarmOrder {
         this.updateTime = updateTime;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "FarmOrder{" +
@@ -72,6 +83,7 @@ public class FarmOrder {
                 ", customerId=" + customerId +
                 ", status=" + status +
                 ", updateTime=" + updateTime +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

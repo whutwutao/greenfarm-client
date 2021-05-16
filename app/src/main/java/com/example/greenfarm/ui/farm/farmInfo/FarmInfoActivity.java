@@ -2,6 +2,7 @@ package com.example.greenfarm.ui.farm.farmInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.ui.chat.ChatActivity;
+import com.example.greenfarm.ui.farm.EditFarmOrderActivity;
 import com.example.greenfarm.ui.payment.PayForFarmActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
@@ -90,7 +92,7 @@ public class FarmInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                rentFarm(farm.getId(),UserManager.currentUser.getId());
-                Intent intent1 = new Intent(FarmInfoActivity.this, PayForFarmActivity.class);
+                Intent intent1 = new Intent(FarmInfoActivity.this, EditFarmOrderActivity.class);
                 intent1.putExtra("farm",new Gson().toJson(mFarm));
                 startActivity(intent1);
             }

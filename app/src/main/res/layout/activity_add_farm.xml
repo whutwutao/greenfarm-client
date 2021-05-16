@@ -196,7 +196,7 @@
             android:layout_centerVertical="true"
             android:textColor="#404040"
             android:layout_marginLeft="10dp"
-            android:hint="输入租金(万元)"
+            android:hint="输入年租金(元)"
             android:inputType="number"
             android:background="@null"/>
 
