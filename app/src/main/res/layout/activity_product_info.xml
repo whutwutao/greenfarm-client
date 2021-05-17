@@ -295,6 +295,7 @@
             android:background="#FD9809"
             android:text="立即购买"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:onClick="buyNow"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

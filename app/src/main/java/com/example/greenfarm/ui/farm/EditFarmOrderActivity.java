@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.greenfarm.R;
 import com.example.greenfarm.pojo.Farm;
-import com.example.greenfarm.ui.payment.PayForFarmActivity;
+import com.example.greenfarm.ui.payment.PaymentActivity;
 import com.example.greenfarm.utils.addressPicker.AddressPickTask;
 import com.google.gson.Gson;
 
@@ -79,7 +79,8 @@ public class EditFarmOrderActivity extends AppCompatActivity {
                 if (tvBriefAddress.getText().toString().isEmpty() || etDetailedAddress.getText().toString().isEmpty()) {
                     Toast.makeText(EditFarmOrderActivity.this,"地址输入不完整",Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(EditFarmOrderActivity.this, PayForFarmActivity.class);
+                    Intent intent = new Intent(EditFarmOrderActivity.this, PaymentActivity.class);
+                    intent.putExtra("type",0);//支付类型，0表示为农场支付，1表示为产品支付
                     intent.putExtra("farm",new Gson().toJson(mFarm));
                     String address = tvBriefAddress.getText().toString() + etDetailedAddress.getText().toString();
                     intent.putExtra("address",address);

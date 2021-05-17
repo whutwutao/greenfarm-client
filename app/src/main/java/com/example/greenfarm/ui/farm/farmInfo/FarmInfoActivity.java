@@ -2,7 +2,6 @@ package com.example.greenfarm.ui.farm.farmInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +13,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.greenfarm.R;
-import com.example.greenfarm.management.UserManager;
 import com.example.greenfarm.pojo.Farm;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.ui.chat.ChatActivity;
 import com.example.greenfarm.ui.farm.EditFarmOrderActivity;
-import com.example.greenfarm.ui.payment.PayForFarmActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

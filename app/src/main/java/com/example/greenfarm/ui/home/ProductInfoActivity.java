@@ -172,6 +172,23 @@ public class ProductInfoActivity extends AppCompatActivity {
     }
 
     /**
+     * 立即购买的点击事件
+     * @param view
+     */
+    public void buyNow(View view) {
+        Intent intent = new Intent(this, EditProductOrderActivity.class);
+        String jsonProduct = new Gson().toJson(mProduct);
+        String jsonFarmer = new Gson().toJson(mFarmer);
+        /**
+         * 将产品、商家、数量传入订单填写页面
+         */
+        intent.putExtra("product",jsonProduct);
+        intent.putExtra("farmer",jsonFarmer);
+        intent.putExtra("amount",amount);
+        startActivity(intent);
+    }
+
+    /**
      * 封装Toast显示方法
      * @param msg
      */
