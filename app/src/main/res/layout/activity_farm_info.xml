@@ -214,7 +214,7 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_register_btn"
+            android:background="#FD9809"
             android:text="立即租赁"
             android:textColor="#ffffff"
             android:textSize="24sp" />

@@ -3,6 +3,7 @@ package com.example.greenfarm.ui.home;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -195,6 +197,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         },productRecyclerView);
         productRecyclerView.setAdapter(productAdapter);
+        EditText etSearch = view.findViewById(R.id.et_search_product_home);
+        etSearch.setFocusable(false);
+        etSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),SearchProductActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
