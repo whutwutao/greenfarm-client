@@ -16,12 +16,15 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.greenfarm.R;
+import com.example.greenfarm.management.UserManager;
+import com.example.greenfarm.pojo.Cart;
 import com.example.greenfarm.pojo.Product;
 import com.example.greenfarm.pojo.User;
 import com.example.greenfarm.ui.chat.ChatActivity;
 import com.example.greenfarm.ui.farm.farmInfo.FarmInfoActivity;
 import com.example.greenfarm.utils.HttpUtil;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +39,8 @@ public class ProductInfoActivity extends AppCompatActivity {
     private final static int NETWORK_ERR = -1;//网络错误
     private final static int GET_FARMER_FAIL = 0;//获取商家信息失败
     private final static int GET_FARMER_SUCCEED = 1;//获取商家信息成功
+    private final static int ADD_TO_CART_FAIL = 2;//添加购物车失败
+    private final static int ADD_TO_CART_SUCCEED = 3;//添加购物车成功
 
     private Product mProduct;//当前展示的产品
 
@@ -75,6 +80,12 @@ public class ProductInfoActivity extends AppCompatActivity {
                         break;
                     case GET_FARMER_SUCCEED:
                         showToast("商家信息获取成功");
+                        break;
+                    case ADD_TO_CART_FAIL:
+                        showToast("加入购物车失败");
+                        break;
+                    case ADD_TO_CART_SUCCEED:
+                        showToast("加入购物车成功");
                         break;
                 }
             }
@@ -186,6 +197,44 @@ public class ProductInfoActivity extends AppCompatActivity {
         intent.putExtra("amount",amount);
         startActivity(intent);
     }
+
+    /**
+     * 加入购物车的点击事件
+     * @param view
+     */
+    public void addToCart(View view) {
+        int productId = mProduct.getId();
+        int customerId = UserManager.currentUser.getId();
+        double money = amount * mProduct.getPrice();
+        Cart cart = new Cart(0,customerId,productId,amount,money);
+        String jsonToServer = new Gson().toJson(cart);
+        try {
+            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/addCart"),jsonToServer,new okhttp3.Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Message msg = Message.obtain();
+                    msg.what = NETWORK_ERR;
+                    mHandler.sendMessage(msg);
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String body = response.body().string();
+                    HashMap<String,String> result = new Gson().fromJson(body,new TypeToken<HashMap<String,String>>(){}.getType());
+                    Message msg = Message.obtain();
+                    if(result.get("result").equals("success")) {
+                        msg.what = ADD_TO_CART_SUCCEED;
+                    } else {
+                        msg.what = ADD_TO_CART_FAIL;
+                    }
+                    mHandler.sendMessage(msg);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 封装Toast显示方法

@@ -283,7 +283,8 @@
             android:background="@color/red"
             android:text="加入购物车"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:onClick="addToCart"/>
 
         <Button
             android:id="@+id/btn_buy_now"
