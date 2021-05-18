@@ -23,6 +23,7 @@ import com.example.greenfarm.ui.mine.myFarm.customer.CustomerMyFarmActivity;
 import com.example.greenfarm.ui.mine.myFarm.farmer.MyFarmActivity;
 import com.example.greenfarm.ui.mine.myMessage.MessageActivity;
 import com.example.greenfarm.ui.mine.myOrder.MyOrderActivity;
+import com.example.greenfarm.ui.mine.productManage.ProductManageActivity;
 import com.example.greenfarm.ui.mine.setting.SettingActivity;
 
 public class MineFragment extends Fragment {
@@ -32,6 +33,8 @@ public class MineFragment extends Fragment {
     private TextView tvUsername;
 
     private TextView tvRole;
+
+
 
     public static MineFragment newInstance() {
         return new MineFragment();
@@ -97,7 +100,22 @@ public class MineFragment extends Fragment {
             }
         });
 
+        RelativeLayout rlProduct = root.findViewById(R.id.rl_product_manage);
+        if (UserManager.currentUser.getIsFarmer() == 1) {
+            rlProduct.setVisibility(View.VISIBLE);
+            rlProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), ProductManageActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            rlProduct.setVisibility(View.GONE);
+        }
+
         return root;
+
     }
 
     @Override

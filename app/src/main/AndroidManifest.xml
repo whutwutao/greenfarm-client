@@ -19,6 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Greenfarm">
+        <activity android:name=".ui.mine.productManage.AddProductActivity"></activity>
+        <activity android:name=".ui.mine.productManage.ProductManageActivity" />
         <activity android:name=".ui.home.EditProductOrderActivity" />
         <activity android:name=".ui.home.ProductInfoActivity" />
         <activity android:name=".ui.home.SearchProductActivity" />

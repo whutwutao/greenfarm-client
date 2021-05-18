@@ -40,6 +40,8 @@ public class PaymentActivity extends AppCompatActivity {
     private HashMap<String, String> requestData;//获取orderInfo的请求参数
     private int paymentType;//支付类型
     private Product mProduct;//即将购买的产品
+    private int amount;//购买产品的数量
+    private double money;//购买产品的总金额
     private Farm mFarm;//即将租赁的农场
     private String address;//收货地址
     private static final int NETWORK_ERR = 0;
@@ -48,6 +50,8 @@ public class PaymentActivity extends AppCompatActivity {
     private static final int GET_ORDER_INFO_FAIL = 3;
     private static final int RENT_FARM_SUCCEED = 4;
     private static final int RENT_FARM_FAIL = 5;
+    private static final int ADD_PRODUCT_ORDER_SUCCEED = 6;
+    private static final int ADD_PRODUCT_ORDER_FAIL = 7;
     private String orderInfo;
 
 
@@ -68,7 +72,12 @@ public class PaymentActivity extends AppCompatActivity {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        rentFarm(mFarm.getId(), UserManager.currentUser.getId());
+                        if (paymentType == 0) {
+                            rentFarm(mFarm.getId(), UserManager.currentUser.getId());
+                        } else {
+                            addProductOrder();
+                        }
+
                     } else {
                         Toast.makeText(PaymentActivity.this,"支付失败",Toast.LENGTH_SHORT).show();
                         finish();
@@ -91,6 +100,9 @@ public class PaymentActivity extends AppCompatActivity {
                     finish();
                 case RENT_FARM_FAIL:
                     finish();
+                case ADD_PRODUCT_ORDER_SUCCEED:
+                case ADD_PRODUCT_ORDER_FAIL:
+                    finish();
                 default:
                     break;
             }
@@ -102,16 +114,22 @@ public class PaymentActivity extends AppCompatActivity {
         EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_for_farm);
+        TextView tvTotalAmount = findViewById(R.id.tv_payment_amount);
         Intent intent = getIntent();
         paymentType = intent.getIntExtra("type",-1);
         if (paymentType == 0) {
             String jsonFarm = intent.getStringExtra("farm");
             mFarm = new Gson().fromJson(jsonFarm,Farm.class);
             address = intent.getStringExtra("address");
-            TextView tvTotalAmount = findViewById(R.id.tv_payment_amount);
+
             tvTotalAmount.setText("￥"+ mFarm.getPrice() * mFarm.getServiceLife());
         } else {
-
+            String jsonProduct = intent.getStringExtra("product");
+            mProduct = new Gson().fromJson(jsonProduct,Product.class);
+            amount = intent.getIntExtra("amount",1);
+            money = Double.parseDouble(intent.getStringExtra("money"));
+            address = intent.getStringExtra("address");
+            tvTotalAmount.setText("￥"+money);
         }
 
     }
@@ -120,7 +138,7 @@ public class PaymentActivity extends AppCompatActivity {
      * 支付按钮点击事件
      * @param view
      */
-    public void submit(View view) {
+    public void pay(View view) {
         getOrderInfo();//从服务器获得orderInfo
     }
 
@@ -156,7 +174,8 @@ public class PaymentActivity extends AppCompatActivity {
             request.put("total_amount",String.valueOf(mFarm.getPrice()*mFarm.getServiceLife()));
             request.put("subject",mFarm.getDescription());
         } else {
-
+            request.put("total_amount",String.valueOf(money));
+            request.put("subject",mProduct.getName() + "(" + mProduct.getDescription() + ")，"+"共"+amount+"份");
         }
         String jsonToServer = new Gson().toJson(request);
         try {
@@ -224,6 +243,42 @@ public class PaymentActivity extends AppCompatActivity {
                         msg.what = RENT_FARM_SUCCEED;
                     } else {
                         msg.what = RENT_FARM_FAIL;
+                    }
+                    mHandler.sendMessage(msg);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addProductOrder() {
+        HashMap<String,String> request = new HashMap<>();
+        request.put("product",new Gson().toJson(mProduct));
+        request.put("customerId",String.valueOf(UserManager.currentUser.getId()));
+        request.put("amount",String.valueOf(amount));
+        request.put("money",String.valueOf(money));
+        request.put("address",address);
+        String jsonToServer = new Gson().toJson(request);
+        try {
+            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/addProductOrder"),jsonToServer,new okhttp3.Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Message msg = Message.obtain();
+                    msg.what = NETWORK_ERR;
+                    mHandler.sendMessage(msg);
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String body = response.body().string();
+                    Log.d("PayResultOfProduct",body);
+                    HashMap<String,String> result = new Gson().fromJson(body,new TypeToken<HashMap<String,String>>(){}.getType());
+                    Message msg = Message.obtain();
+                    if (result.get("result").equals("success")) {
+                        msg.what = ADD_PRODUCT_ORDER_SUCCEED;
+                    } else {
+                        msg.what = ADD_PRODUCT_ORDER_FAIL;
                     }
                     mHandler.sendMessage(msg);
                 }

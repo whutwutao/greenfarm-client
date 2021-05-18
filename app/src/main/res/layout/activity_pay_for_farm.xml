@@ -77,7 +77,7 @@
             android:id="@+id/btn_pay_for_farm"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:onClick="submit"
+            android:onClick="pay"
             android:text="支付宝支付"
             android:textSize="18sp"
             android:textColor="#FFFFFF"

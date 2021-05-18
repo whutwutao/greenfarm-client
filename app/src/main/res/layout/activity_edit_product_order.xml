@@ -218,14 +218,14 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
         <Button
-            android:id="@+id/btn_submit_farm_order"
+            android:id="@+id/btn_submit_product_order"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="提交订单"
             android:textSize="16sp"
             android:textColor="#FFFFFF"
             android:background="#145CFE"
-            />
+            android:onClick="submitProductOrder"/>
     </LinearLayout>
 
 
