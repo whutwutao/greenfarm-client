@@ -21,7 +21,6 @@ import java.util.List;
 
 public class FarmerFarmOrderAdapter extends BaseQuickAdapter<FarmOrderBean, BaseViewHolder> {
     private Context mContext;
-    boolean flag = true;
     public FarmerFarmOrderAdapter(@Nullable List<FarmOrderBean> data, Context mContext) {
         super(R.layout.item_farm_order, data);
         this.mContext = mContext;
@@ -33,14 +32,13 @@ public class FarmerFarmOrderAdapter extends BaseQuickAdapter<FarmOrderBean, Base
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (flag) {
+                if (!item.isSelected()) {
                     imageView.setImageResource(R.mipmap.icon_select);
                     item.setSelected(true);
                 } else {
                     imageView.setImageResource(R.mipmap.icon_un_select);
                     item.setSelected(false);
                 }
-                flag = !flag;
             }
         });
         ImageView farmPic = helper.getView(R.id.iv_farm_order_farm);

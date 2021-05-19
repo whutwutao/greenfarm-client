@@ -17,12 +17,12 @@ import com.example.greenfarm.utils.HttpUtil;
 
 import java.util.List;
 
-public class CartAdapter extends BaseQuickAdapter<CartAdapterItem, BaseViewHolder> {
+public class CartPayAdapter extends BaseQuickAdapter<CartAdapterItem, BaseViewHolder> {
 
     private Context mContext;
 
-    public CartAdapter(@Nullable List<CartAdapterItem> data, Context mContext) {
-        super(R.layout.cart_item,data);
+    public CartPayAdapter(@Nullable List<CartAdapterItem> data, Context mContext) {
+        super(R.layout.cart_item, data);
         this.mContext = mContext;
     }
 
@@ -36,35 +36,10 @@ public class CartAdapter extends BaseQuickAdapter<CartAdapterItem, BaseViewHolde
         helper.setText(R.id.tv_cart_amount,cart.getAmount()+"份");
 
         ImageView ivSelect = helper.getView(R.id.iv_cart_select);
-        ivSelect.setImageResource(R.mipmap.icon_un_select);
-        ivSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!item.isSelected()) {
-                    ivSelect.setImageResource(R.mipmap.icon_select);
-                    item.setSelected(true);
-                    onItemClickListener.onSelect(helper.getAdapterPosition());
-                } else {
-                    ivSelect.setImageResource(R.mipmap.icon_un_select);
-                    item.setSelected(false);
-                    onItemClickListener.onUnSelect(helper.getAdapterPosition());
-                }
-            }
-        });
+        ivSelect.setVisibility(View.GONE);
+
         ImageView ivPicture = helper.getView(R.id.iv_cart_picture);
         Glide.with(mContext).load(HttpUtil.getUrl(product.getPictureUrl())).into(ivPicture);
+
     }
-
-    public interface OnItemClickListener {
-        void onSelect(int position);
-        void onUnSelect(int position);
-    }
-
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-
 }

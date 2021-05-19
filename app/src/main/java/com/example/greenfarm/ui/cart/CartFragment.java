@@ -2,6 +2,7 @@ package com.example.greenfarm.ui.cart;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,12 +40,16 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class CartFragment extends Fragment {
     private CartViewModel mViewModel;
 
     private final static int NETWORK_ERR = -1;
     private final static int GET_CART_DATA_FAIL = 0;
     private final static int GET_CART_DATA_SUCCEED = 1;
+    private final static int DELETE_CART_FAIL = 2;
+    private final static int DELETE_CART_SUCCEED = 3;
 
     private TextView tvEditCart;//编辑按钮
 
@@ -80,6 +85,21 @@ public class CartFragment extends Fragment {
                     showToast("购物车信息获取成功");
                     cartAdapter.setNewData(cartAdapterItemList);
                     break;
+                case DELETE_CART_FAIL:
+                    showToast("删除购物车失败");
+                    break;
+                case DELETE_CART_SUCCEED:
+                    showToast("删除购物车成功");
+//                    for (int i = 0; i < cartAdapterItemList.size(); i++) {
+//                        if (cartAdapterItemList.get(i).isSelected()) {
+//                            total -= cartAdapterItemList.get(i).getCart().getMoney();
+//                            cartAdapterItemList.remove(i);
+//                        }
+//                    }
+                    initCartData();
+                    total = 0;
+                    tvTotalMoney.setText("￥" + total);
+                    break;
             }
         }
     };
@@ -106,12 +126,64 @@ public class CartFragment extends Fragment {
         tvTotalMoney = view.findViewById(R.id.tv_cart_total_money);
         btnPay = view.findViewById(R.id.btn_pay_for_cart);
         btnPay.setVisibility(View.VISIBLE);
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<CartAdapterItem> dataList = new ArrayList<>();
+                for (CartAdapterItem cartAdapterItem : cartAdapterItemList) {
+                    if (cartAdapterItem.isSelected()) {
+                        dataList.add(cartAdapterItem);
+                    }
+                }
+                if (dataList.isEmpty()) {
+                    showToast("您还没有选择商品");
+                    return;
+                }
+                Intent intent = new Intent(getContext(),EditCartOrderActivity.class);
+                intent.putExtra("dataList",new Gson().toJson(dataList));
+                intent.putExtra("total",total);
+                startActivityForResult(intent,1);
+            }
+        });
+
         btnDeleteCart = view.findViewById(R.id.btn_delete_cart);
+        btnDeleteCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isEmpty = true;
+                for (CartAdapterItem cartAdapterItem : cartAdapterItemList) {
+                    if (cartAdapterItem.isSelected()) {
+                        isEmpty = false;
+                        break;
+                    }
+                }
+                if (isEmpty) {
+                    showToast("请选择要删除的商品");
+                    return;
+                }
+                deleteCartList();
+            }
+        });
         btnDeleteCart.setVisibility(View.GONE);
         cartRecyclerView = view.findViewById(R.id.recyclerview_cart);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         cartRecyclerView.setLayoutManager(layoutManager);
         cartAdapter = new CartAdapter(cartAdapterItemList,getContext());
+        cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
+            @Override
+            public void onSelect(int position) {
+                total += cartAdapterItemList.get(position).getCart().getMoney();
+                tvTotalMoney.setText("￥" + total);
+            }
+
+            @Override
+            public void onUnSelect(int position) {
+                if (total >= cartAdapterItemList.get(position).getCart().getMoney()) {
+                    total -= cartAdapterItemList.get(position).getCart().getMoney();
+                    tvTotalMoney.setText("￥" + total);
+                }
+            }
+        });
         cartRecyclerView.setAdapter(cartAdapter);
 
         tvEditCart.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +228,61 @@ public class CartFragment extends Fragment {
                         msg.what = GET_CART_DATA_SUCCEED;
                     } else {
                         msg.what = GET_CART_DATA_FAIL;
+                    }
+                    mHandler.sendMessage(msg);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    showToast("结算成功");
+                    deleteCartList();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 删除购物车
+     */
+    private void deleteCartList() {
+        List<Integer> cartIdList = new ArrayList<>();//将要删除的Cart的id列表
+        for (CartAdapterItem cartAdapterItem : cartAdapterItemList) {
+            if (cartAdapterItem.isSelected()) {
+                cartIdList.add(cartAdapterItem.getCart().getId());
+            }
+        }
+        String jsonCartIdList = new Gson().toJson(cartIdList);
+        try {
+            HttpUtil.postWithOkHttp(HttpUtil.getUrl("/deleteCartList"),jsonCartIdList,new okhttp3.Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Message msg = Message.obtain();
+                    msg.what = NETWORK_ERR;
+                    mHandler.sendMessage(msg);
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String body = response.body().string();
+                    Log.d("删除购物车",body);
+                    HashMap<String,String> res = new Gson().fromJson(body,new TypeToken<HashMap<String,String>>(){}.getType());
+                    Message msg = Message.obtain();
+                    if (res.get("result").equals("success")) {
+                        msg.what = DELETE_CART_SUCCEED;
+                    } else {
+                        msg.what = DELETE_CART_FAIL;
                     }
                     mHandler.sendMessage(msg);
                 }
